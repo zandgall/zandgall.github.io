@@ -1,0 +1,201 @@
+
+<html lang="en">
+    <head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Zandgall - Level Creator</title>
+    <meta name="description" content="Web1">
+    <meta name="author" content="Zandgall">
+    
+    <link rel="icon" href="Icon.png">
+    
+    <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background: linear-gradient(rgb(100,200,255), rgb(0, 20, 200))">
+    <canvas id="BackgroundC" class="bg" syle="position: fixed;margin: 0;width: 100%;height: 100%;border: 0;">Canvas is not supported</canvas>
+    
+    <!--    Split everything into a universal div-->
+    <div id="universal">
+
+        <header class="title" style="text-align: center;">ZandgallGames</header>
+
+        <div style="animation: frombottom 2s 0s 1 forwards;" class = "splitter"></div>
+
+        <h1 style="
+                   font-family: monospace;
+                   margin: 0;
+                   text-align: center;
+                   position: relative;
+                   color: rgba(0,0,0,0);
+                   animation-timing-function: step-end;
+                   animation: fb 2s 0.25s 1 forwards;
+                   ">Level Creator!</h1>
+        <h2 style="
+                   margin: 0;
+                   text-align: center;
+                   font-family: monospace;
+                   font-variant-position: sub;
+                   font-style: italic;
+                   font-size: 14;
+                   position: relative;
+                   color: rgba(0,0,0,0);
+                   animation: fb 2s 0.5s 1 forwards;
+                   ">Let's get creative!</h2>
+
+        <div class = "splitter" style="animation: frombottom 2s 0.75s 1 forwards;"></div>
+
+        <div style="margin-left: auto; margin-right: auto; margin-top: 10; width: 766; height: 200">
+            
+            <a href="index.html">
+                <img class = "section" style="opacity: 0; float:right;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Splash.png" alt="Arvopia title" height = 200>
+                
+                <img class = "section" style="opacity: 0; float:left;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Icon.png" alt="Icon" width=200 height = 200>
+            </a>
+        </div>
+        
+        <div style="margin:auto; width: 766; height: 60">
+            <canvas id="links" width=766 height="200" style="z-index: 20; position:relative; width:766; height:200; margin-left: auto; margin-right: auto; animation: fbimg 2s 1s 1 forwards">
+            </canvas>
+        </div>
+
+        <div class="section" style="margin-left: auto; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
+
+            <h1 class="section" style="width: 600; text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.075s 1 forwards">Level Creator</h1>
+            
+            <h2 style="width: 600; text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.075s 1 forwards">The level creator names have their version, date of release, and Arvopia version support</h2>
+            
+            <div>
+                <h2 class="section" style="width:400;text-align: center; margin-left: auto; margin-right: auto; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    LevelCreator 0.3 - Arvopia v0.5
+                </h2>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    This version adds a variety of tools. This included the ability to scale worlds much bigger, as well as the inclusion of a +/- control to select tiles. But most importantly this version added a custom entity placement tool, where you could put preset entities wherever you wanted.
+                </p>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    <a style="color:transparent; animation: fb 2s 1.4s 1 forwards" target="_blank" href="/Downloads/LevelCreator0.3.zip" download>
+                        LevelCreator 0.3 - 5/18/18 - A0.5
+                    </a>
+                </p>
+                
+                <div class="splitter" style="text-align: center; margin-top: 20; margin-bottom: 20; margin-left: auto; margin-right: auto; animation: frombottom 2s 0.75s 1 forwards;"></div>
+            </div>
+            
+            <div>
+                <h2 class="section" style="width:400;text-align: center; margin-left: auto; margin-right: auto; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    LevelCreator 0.2 - Arvopia v0.4
+                </h2>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    This is a debugged version of 0.1 with essentially the same tools but actually working.
+                </p>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    <a style="color:transparent; animation: fb 2s 1.4s 1 forwards" target="_blank" href="/Downloads/LevelCreator0.2.zip" download>
+                        LevelCreator 0.2 - 4/26/18 - A0.4
+                    </a>
+                </p>
+                
+                <div class="splitter" style="text-align: center; margin-top: 20; margin-bottom: 20; margin-left: auto; margin-right: auto; animation: frombottom 2s 0.75s 1 forwards;"></div>
+            </div>
+            
+            <div>
+                <h2 class="section" style="width:400;text-align: center; margin-left: auto; margin-right: auto; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    LevelCreator 0.1 - Arvopia v0.4
+                </h2>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    This is the most basic level creator with only the basic tools, 0.2 is reccomended as 0.1 does not work sometimes.
+                </p>
+
+                <p style="text-align: center; margin-left: 20; font-family: sans-serif; font-weight: bold; position: relative; color:transparent; animation: fb 2s 1.4s 1 forwards">
+                    <a style="color:transparent; animation: fb 2s 1.4s 1 forwards" target="_blank" href="/Downloads/LevelCreator0.1.zip" download>
+                        LevelCreator 0.1 - 4/25/18 - A0.4 (NOT RECOMMENDED)
+                    </a>
+                </p>
+            </div>
+            
+            <img id="tree" src=Tree.png width = 0 height = 0 alt="The Tree">
+            
+            <img id="BGImg0" src="BGImg0.png" width=0 height=0>
+            <img id="BGImg1" src="BGImg1.png" width=0 height=0>
+            <img id="BGImg2" src="BGImg2.png" width=0 height=0>
+            
+        <script>
+
+            function Tree(x, y) {
+                var c = document.getElementById("myCanvas");
+                var ctx = c.getContext("2d");
+                ctx.drawImage(document.getElementById("tree"), x, y, 40, 100);
+            }
+
+            window.onload = function() {
+
+                for(var i = 0; i<20; i++) {
+                    Tree(Math.floor(Math.random()*766), 0);
+                }
+            }
+
+        </script>
+            
+        <script type="text/javascript" src="layers.js">
+            draw();
+        </script>
+            
+        <script type="text/javascript" src="links.js">
+        </script>
+                        
+
+        </div>
+    
+    </div>
+    
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

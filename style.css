@@ -37,6 +37,13 @@
             height: 100%;
             border: 0;
         }
+
+        .basictext {
+            position:relative;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
         
         html, body {
             margin: 0px;

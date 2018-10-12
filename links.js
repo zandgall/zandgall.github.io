@@ -131,6 +131,18 @@ var mouseX = 0, mouseY =0;
                 }
                 if(nh){
                     ns = (55+ns)/2;
+                    
+                    outText(c, "Teasers", nx, ny+ns-14, "#a6ebff", 1, "#0000ff");
+                    outText(c, "Future Plans", nx, ny+ns+4, "#a6ebff", 1, "#0000ff");
+                    outText(c, "What's Old", nx, ny+ns+22, "#a6ebff", 1, "#0000ff");
+                    
+                    c.fillStyle="#ffff00";
+                    if(mouseY>ny+ns/2&&mouseY<ny+ns-14)
+                        c.fillText("Teasers", nx, ny+ns-14);
+                    else if(mouseY>ny+ns-14&&mouseY<ny+ns+4)
+                        c.fillText("Future Plans", nx, ny+ns+4);
+                    else if(mouseY>ny+ns+4&&mouseY<ny+ns+22)
+                        c.fillText("What's Old", nx, ny+ns+22);
                 } else {
                     ns = (30+ns)/2;
                 }
@@ -202,14 +214,18 @@ var mouseX = 0, mouseY =0;
                     else window.location.href="index.html";
                 }
                 if(dh){
-                    if(mouseY>dy+ds/2 && mouseY<dy+ds-14)
-                        window.location.href="arvopiadownload.html";
+                    if(mouseY>dy+ds-14 && mouseY<dy+ds+4)
+                        window.location.href="levelcreatordownload.html";
                     else if(mouseY>dy+ds+4 && mouseY<dy+ds+22)
                         window.location.href="arvopiabuilddownload.html";
-                    else window.location.href="download.html";
+                    else window.location.href="arvopiadownload.html";
                 }
                 if(nh){
-                    window.location.href="whatsnew.html";
+                    if(mouseY>ny+ns-14 && mouseY<ny+ns+4)
+                        window.location.href="futureplans.html";
+                    else if(mouseY>ny+ns+4 && mouseY<ny+ns+22)
+                        window.location.href="whatsold.html";
+                    else window.location.href="teasers.html";
                 }
                 if(ch){
                     window.location.href="contact.html";
