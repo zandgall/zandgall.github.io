@@ -4,6 +4,10 @@
             flow-into: {left: 200}
         }
         
+table, tt, th, td {
+    border: 1px solid black;
+}
+
         .title {
             font-family: 'Signika', serif;
             font-size: 48;

@@ -148,6 +148,18 @@ var mouseX = 0, mouseY =0;
                 }
                 if(ch){
                     cs = (55+cs)/2;
+                    
+                    outText(c, "Social Media", cx, cy+cs-14, "#a6ebff", 1, "#0000ff");
+                    outText(c, "Bug Reports", cx, cy+cs+4, "#a6ebff", 1, "#0000ff");
+                    outText(c, "Contributions", cx, cy+cs+22, "#a6ebff", 1, "#0000ff");
+                    
+                    c.fillStyle="#ffff00";
+                    if(mouseY>cy+cs/2&&mouseY<cy+cs-14)
+                        c.fillText("Social Media", cx, cy+cs-14);
+                    else if(mouseY>cy+cs-14&&mouseY<cy+cs+4)
+                        c.fillText("Bug Reports", cx, cy+cs+4);
+                    else if(mouseY>cy+cs+4&&mouseY<cy+cs+22)
+                        c.fillText("Contributions", cx, cy+cs+22);
                 } else {
                     cs = (30+cs)/2;
                 }
@@ -193,13 +205,13 @@ var mouseX = 0, mouseY =0;
                 
                 ih=(x>=ix && x<ix+iw && y>0 && y<is+iy+4);
                 
-                dh=(x>=dx && x<dx+dw && y>0 && y<ds+dy+22);
+                dh=(x>=dx && x<dx+dw && y>0 && y<ds+dy+(dh ? 22: -ds/2));
                 
-                nh=(x>=nx && x<nx+nw && y>0 && y<ns+ny+22);
+                nh=(x>=nx && x<nx+nw && y>0 && y<ns+ny+(nh ? 22: -ns/2));
                 
-                ch=(x>=cx && x<cx+cw && y>0 && y<cs+cy+22);
+                ch=(x>=cx && x<cx+cw && y>0 && y<cs+cy+(ch ? 22: -cs/2));
                 
-                mh=(x>=mx && x<mx+mw && y>0 && y<ms+my+22);
+                mh=(x>=mx && x<mx+mw && y>0 && y<ms+my+(mh ? 22: -ms/2));
                 
                 mouseX=x;
                 mouseY=y;
