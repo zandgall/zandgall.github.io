@@ -169,9 +169,9 @@ var mouseX = 0, mouseY =0;
                     outText(c, "Fun stuff", mx, my+ms+4, "#a6ebff", 1, "#0000ff");
                      c.fillStyle="#ffff00";
                     if(mouseY>my+ms/2&&mouseY<my+ms-14)
-                        c.fillText("Music", mx, my+ms-14);
+                        c.fillText("Music", cx, cy+cs-14);
                     else if(mouseY>my+ms-14&&mouseY<my+ms+4)
-                        c.fillText("Fun stuff", mx, my+ms+4);
+                        c.fillText("Fun stuff", cx, cy+cs+4);
                 } else {
                     ms = (30+ms)/2;
                 }
@@ -254,9 +254,9 @@ var mouseX = 0, mouseY =0;
                     else window.location.href="socialmedia.html";
                 }
                 if(mh){
-                    if(mouseY>my+ms/2 && mouseY<my+ms-14)
+                    if(mouseY>my+ms-14 && mouseY<my+ms+4)
                         window.location.href="music.html";
-                    else if(mouseY>my+ms-14 && mouseY<my+ms+4)
+                    else if(mouseY>my+ms+4 && mouseY<my+ms+22)
                         window.location.href="funstuff.html";
                 }
             }   

@@ -1,18 +1,25 @@
-
 <html lang="en">
     <head>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <title>Zandgall - Bug Reports</title>
+    <title>Zandgall - Template</title>
     <meta name="description" content="Web1">
     <meta name="author" content="Zandgall">
     
-    <link rel="icon" href="Icon.png">
+    <link rel="icon" href="Icon.png"> 
     
+    <script type="text/javascript" src="BubbleCannons/rounds.js"></script>
+    <script type="text/javascript" src="BubbleCannons/upgrademenu.js"></script>
+    <script type="text/javascript" src="BubbleCannons/bcplayer.js"></script>
+    <script type="text/javascript" src="BubbleCannons/bcenemy.js"></script>
+    <script type="text/javascript" src="BubbleCannons/cannons.js"></script>
+    
+    <script type="text/javascript" src="links.js"></script>
+        
     <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet" type="text/css">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="funsiestyle.css">
 </head>
 
 <body style="background: linear-gradient(rgb(100,200,255), rgb(0, 20, 200))">
@@ -33,7 +40,7 @@
                    color: rgba(0,0,0,0);
                    animation-timing-function: step-end;
                    animation: fb 2s 0.25s 1 forwards;
-                   ">Bug Reports!</h1>
+                   ">Welcome to the site!</h1>
         <h2 style="
                    margin: 0;
                    text-align: center;
@@ -44,7 +51,7 @@
                    position: relative;
                    color: rgba(0,0,0,0);
                    animation: fb 2s 0.5s 1 forwards;
-                   ">Gimme your bug reports!</h2>
+                   ">A resource for Arvopia and other projects</h2>
 
         <div class = "splitter" style="animation: frombottom 2s 0.75s 1 forwards;"></div>
 
@@ -61,82 +68,18 @@
             <canvas id="links" width=766 height="200" style="z-index: 20; position:relative; width:766; height:200; margin-left: auto; margin-right: auto; animation: fbimg 2s 1s 1 forwards">
             </canvas>
         </div>
-
-        <div class="section" style="margin-left: auto; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
-
-            <h1 class="section" style="margin-left: auto; margin-right: auto; text-align: center; width: 300; animation: fb 2s 1.1s 1 forwards">
-                Bug Reports
-            </h1>
-            
-            <h3 class="basictext" style="animation: fb 2s 1.3s 1 forwards">
-                If you have any bug reports to send me, contact me at my email here - <a target="_blank" href="mailto: Alexanderdgall@gmail.com">Alexanderdgall@gmail.com</a>
-            </h3>
-            
-<!--            <ol-->
-            <table style="margin: auto">
-                <tr>
-                    <th width=500>Bug</th>
-                    <th>Fixed</th>
-                </tr>
-                <tr>
-                    <td>Instructions window does not load instructions.txt</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Changelog window does not load changelog.txt</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Window does not close when quit button pressed</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>World 2 and 3 do not load, because they are not configured with 0.6</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Audio does not detect ending properly</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Storms and rain cause extreme lag in some cases</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Walking sounds do not work</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>The world does not save in 0.6 format</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Foxes spawn above world</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>When timespeed is too fast, rain is hardly visible at all</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Combat <span style="margin: auto; text-decoration-line: line-through">sucks</span> doesn't work 100%</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Animation Air-Kick not loading properly</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Flowers disappear</td>
-                    <td>No</td>
-                </tr>
-            </table>
-            
+        
+        <div style="margin:auto; width: 766; height: 60">
+            <canvas class="section" id="Canvas" width=766 height=766 style="position:relative; margin: auto; margin-top:100; margin-bottom: 100; width:766; height:766">CANVAS NOT SUPPORTED</canvas>
+        </div>
+        
             <img id="tree" src=Tree.png width = 0 height = 0 alt="The Tree">
             
             <img id="BGImg0" src="BGImg0.png" width=0 height=0>
             <img id="BGImg1" src="BGImg1.png" width=0 height=0>
             <img id="BGImg2" src="BGImg2.png" width=0 height=0>
+        
+            
         <script>
 
             function Tree(x, y) {
@@ -155,17 +98,18 @@
         </script>
             
         <script type="text/javascript" src="layers.js">
+            display();
+        </script>
+         
+        <script type="text/javascript" src="BubbleCannons/bubblecannons.js">
+            console.log("THIS IS THE BEGINNING");
+            e();
+            init();
             draw();
+            ldraw();
         </script>
-            
-        <script type="text/javascript" src="links.js">
-        </script>
-                        
 
-        </div>
-    
     </div>
-    
     
 </body>
 </html>
