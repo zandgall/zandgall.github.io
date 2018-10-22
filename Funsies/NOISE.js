@@ -1,12 +1,17 @@
-var can = document.getElementById("Canvas");
+var perlin = document.getElementById("Perlin");
 
 var mouseDown = false, mouseLeft = false, mouseRight=false, mouseClicked = false, mouseDBLClicked = false;
 
 var keyTyped=false, keyPressed=false;
 var keys = [false], currentKey = "w";
 
+var path = new PATHS(100);
+path.smooth();
+path.smooth();
 
-
+var path2d = new SINENOISE(1, 100, 100);
+//path2d.smooth();
+//path2d.smooth();
 
 var kode = {
     arrowright: false,
@@ -34,6 +39,7 @@ var kode = {
 }
 
 function init() {
+    
     document.addEventListener("mousemove", on_mousemove, false);
     document.addEventListener("click", on_click, false);
     document.addEventListener("dblclick", dblClick, false);
@@ -49,29 +55,54 @@ function init() {
 
 function draw(){
     
-    var c = can.getContext("2d");
+    var c = perlin.getContext("2d");
     
-    c.canvas.width  = window.innerWidth;
-    c.canvas.height = window.innerHeight;
+    c.clearRect(0, 0, perlin.width, perlin.height);
     
-    c.clearRect(0, 0, can.width, can.height);
+    c.beginPath();
+    c.moveTo(0, 200);
+    for(var i = 0; i<100; i++) {
+//        c.lineTo(i*10, path.array[i]*100+200);
+        c.lineTo(i*10, noise1(i/10)*100+200);
+    }
+    c.strokeStyle="#ff0000";
+    c.stroke();
+    c.closePath();
+    
+    for(var x = 0; x<100; x++) {
+        for(var y = 0; y<100; y++) {
+//            c.fillStyle=rgb(path2d.array[x][y]*255,path2d.array[x][y]*255,path2d.array[x][y]*255);
+            var v = (noise2(x/16, y/16))*2;
+//            console.log(v); 
+            var a = 0.4*(noise2(x/8, y/8))*2;
+            var b = 0.25*(noise2(x/4, y/4))*2;
+            var c1 = 0.1*(noise2(x/2, y/2))*2;
+            v=v+a+b+c1;
+            
+            c.fillStyle=rgba(0, 0, 255, v); 
+            c.fillRect(x*2, y*2+400, 2, 2);
+            c.fillStyle=rgba(255, 255, 100, 0.4-v);
+            c.fillRect(x*2, y*2+400, 2, 2);
+            c.fillStyle=rgba(20, 150, 50, 0.02-v);
+            c.fillRect(x*2, y*2+400, 2, 2);
+            
+            c.fillStyle=rgba(255, 255, 255, v); 
+            c.fillRect(x*2, y*2+600, 2, 2);
+            
+        }
+    }
     
     //DO STUFF HERE
     kode.set();
     
-    c.fillStyle="#0000ff";
-    if(mouseDBLClicked)
-        c.fillStyle="#00ff00";
-    else if(mouseClicked)
-        c.fillStyle="#00ffff";
-    else if(mouseDown)
-        c.fillStyle="#ff00ff";
-    else if(kode.a)
-        c.fillStyle="#ffff00";
-    c.fillRect(0, 0, 100, 100);
-    
     mouseClicked=false;
     mouseDBLClicked=false;
+}
+
+function drawPerlin() {
+    var c = perlin.getContext("2d");
+    
+    c.clearRect(0, 0, can.width, can.height);
 }
 
 function rgb(r, g, b){
@@ -97,8 +128,8 @@ function col(x1, y1, w1, h1, x2, y2, w2, h2) {
 function move(ev) {
     var x, y;
                     
-    x = ev.pageX-can.offsetLeft;
-    y = ev.pageY-can.offsetTop;
+    x = ev.pageX-perlin.offsetLeft;
+    y = ev.pageY-perlin.offsetTop;
     
     mouseX=x;
     mouseY=y;
