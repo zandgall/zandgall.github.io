@@ -146,6 +146,7 @@ var NM = 0xfff;
 var p = [];
 var g1 = [];
 var g2 = [[]];
+var g3 = [[[]]];
 
 var start = 1;
 
@@ -252,12 +253,98 @@ function noise2(x, y) {
 	return lerp(sy, a, b);
 }
 
+function noise3(x, y, z) {
+    var bx0, bx1, by0, by1, bz0, bz1, b00, b10, b01, b11;
+	var rx0, rx1, ry0, ry1, rz0, rz1, q, sy, sz, a, b, c, d, t, u, v;
+	var i, j;
+
+	if (start==1) {
+		start = 0;
+		PERLININIT();
+	}
+
+	var s1 = setup(x);
+    
+    bx0 = s1[1];
+	bx1 = s1[2];
+	rx0 = s1[3];
+	rx1 = s1[4];
+    
+	var s2 = setup(y);
+
+    by0 = s2[1];
+	by1 = s2[2];
+	ry0 = s2[3];
+	ry1 = s2[4];
+	
+    var s3 = setup(z);
+
+    bz0 = s3[1];
+	bz1 = s3[2];
+	rz0 = s3[3];
+	rz1 = s3[4];
+
+	i = p[ bx0 ];
+	j = p[ bx1 ];
+
+	b00 = p[ i + by0 ];
+	b10 = p[ j + by0 ];
+	b01 = p[ i + by1 ];
+	b11 = p[ j + by1 ];
+
+	t  = s_curve(rx0);
+	sy = s_curve(ry0);
+	sz = s_curve(rz0);
+
+//#define at3(rx,ry,rz) ( rx * q[0] + ry * q[1] + rz * q[2] )
+
+	q = g3[ b00 + bz0 ] ; 
+    u = ( rx0 * q[0] + ry0 * q[1] + rz0 * q[2] );
+	q = g3[ b10 + bz0 ] ; 
+    v = ( rx1 * q[0] + ry0 * q[1] + rz0 * q[2] );
+	a = lerp(t, u, v);
+
+	q = g3[ b01 + bz0 ] ; 
+    u = ( rx0 * q[0] + ry1 * q[1] + rz0 * q[2] );;
+	q = g3[ b11 + bz0 ] ; 
+    v = ( rx1 * q[0] + ry1 * q[1] + rz0 * q[2] );;
+	b = lerp(t, u, v);
+
+	c = lerp(sy, a, b);
+
+	q = g3[ b00 + bz1 ] ; 
+    u = ( rx0 * q[0] + ry0 * q[1] + rz1 * q[2] );;
+	q = g3[ b10 + bz1 ] ; 
+    v = ( rx1 * q[0] + ry0 * q[1] + rz1 * q[2] );;
+	a = lerp(t, u, v);
+
+	q = g3[ b01 + bz1 ] ; 
+    u = ( rx0 * q[0] + ry1 * q[1] + rz1 * q[2] );;
+	q = g3[ b11 + bz1 ] ; 
+    v = ( rx1 * q[0] + ry1 * q[1] + rz1 * q[2] );;
+	b = lerp(t, u, v);
+
+	d = lerp(sy, a, b);
+
+	return lerp(sz, c, d);
+}
+
 function normalize2(v) {
 	var s;
 
 	s = Math.sqrt(v[0] * v[0] + v[1] * v[1]);
 	v[0] = v[0] / s;
 	v[1] = v[1] / s;
+    return v;
+}
+
+function normalize3(v) {
+	var s;
+
+	s = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+	v[0] = v[0] / s;
+	v[1] = v[1] / s;
+    v[2] = v[2] / s;
     return v;
 }
 
@@ -273,6 +360,11 @@ function PERLININIT() {
         for (j = 0 ; j < 2 ; j++)
 			g2[i][j] = ((Math.random() *(B + B)) - B) / B;
 		g2[i] = normalize2(g2[i]);
+        
+        g3[i] = [];
+        for (j = 0 ; j < 3 ; j++)
+			g3[i][j] = ((Math.random() *(B + B)) - B) / B;
+		g3[i] = normalize3(g3[i]);
     }
     
     while(i>0) {
@@ -289,6 +381,11 @@ function PERLININIT() {
             g2[B + i]=[];
         for (j = 0 ; j < 2 ; j++)
 			g2[B + i][j] = g2[i][j];
+        
+        if(g3[B + i]==null)
+            g3[B + i]=[];
+        for (j = 0 ; j < 3 ; j++)
+			g3[B + i][j] = g3[i][j];
     }
 }
 
