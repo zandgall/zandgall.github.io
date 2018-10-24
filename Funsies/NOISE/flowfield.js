@@ -78,7 +78,7 @@ function init() {
 function draw(){
     
     var c = perlin.getContext("2d");
-//    c.globalAlpha=PARTICLEALPHA/10;
+    c.globalAlpha=PARTICLEALPHA/10;
     c.imageSmoothingEnabled=true;
      
     c.strokeStyle=rgb(PARTICLERED, PARTICLEGREEN, PARTICLEBLUE);
@@ -87,16 +87,16 @@ function draw(){
         for(var y = 0; y<rows; y++) {
             var angle = noise3(x / 16, y / 16, zOff) * Math.PI*3;
             field[x+y*cols]=angle;
-            var v = VECTORFROMANGLE(angle);
-            v.show(c);
+//            var v = VECTORFROMANGLE(angle);
+//            v.show(c);
         }
     }
     
-//    for(var i = 0; i<tracers.length; i++) {
-//        tracers[i].update(field);
-//        tracers[i].tick(); 
-//        tracers[i].show(c);
-//    }
+    for(var i = 0; i<tracers.length; i++) {
+        tracers[i].update(field);
+        tracers[i].tick(); 
+//        tracers[i].show(c); 
+    }
     
     zOff+=ZOFFPLUS;
 }

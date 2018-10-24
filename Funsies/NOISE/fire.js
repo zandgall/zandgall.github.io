@@ -91,7 +91,10 @@ function updateCoolingMap() {
     for(var x = 0; x<perlin.width; x++) {
         coolingMap[x] = [];
         for(var y = 0; y<perlin.height; y++) {
-            coolingMap[x][y] = noise3(x / 32, y / 32, zOff) * coolant/2 + coolantOffset/2;
+            coolingMap[x][y] = noise3(x / 8, y / 10, zOff) * coolant/2 + coolantOffset/2
+            + 0.1 * (noise3(x / 2, y / 2, zOff) * coolant/2 + coolantOffset/2); 
+//            + 0.25 * noise3(x / 8, y / 8, zOff) * coolant/2 + coolantOffset/2
+//            + 0.1 * noise3(x / 4, y / 4, zOff) * coolant/2 + coolantOffset/2;
         }
     }
 }
@@ -132,8 +135,9 @@ function draw(){
             buffer2[x][y-1]=p;
             
             var o = buffer2[x][y]; 
-            c.fillStyle=rgba(1000*(o+0.1), 500-500*(o+0.3), 0, buffer2[x][y]);
-            c.fillRect(x, y, 1, 1); 
+            c.fillStyle=rgba(255 - (255*o), 500-500*(o+0.3), 0, buffer2[x][y]);
+            c.fillStyle=rgba(255 - 255*(1-(o/(coolant+coolantOffset))), 500-500*(o/(coolant+coolantOffset)), 0, 1);
+            c.fillRect(x, y, 1, 1);  
         }
     }
     
