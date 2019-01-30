@@ -2,27 +2,30 @@
     <head>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Zandgall - Template</title>
     <meta name="description" content="Web1">
     <meta name="author" content="Zandgall">
     
     <link rel="icon" href="Icon.png"> 
-    
-    <script type="text/javascript" src="BubbleCannons/rounds.js"></script>
-    <script type="text/javascript" src="BubbleCannons/upgrademenu.js"></script>
-    <script type="text/javascript" src="BubbleCannons/bcplayer.js"></script>
-    <script type="text/javascript" src="BubbleCannons/bcenemy.js"></script>
-    <script type="text/javascript" src="BubbleCannons/cannons.js"></script>
+<!--
+    <script type="text/javascript" src="layers.js">
+        </script>
+-->
+    <script type="text/javascript" src="Funsies/BubbleCannons/rounds.js"></script>
+    <script type="text/javascript" src="Funsies/BubbleCannons/upgrademenu.js"></script>
+    <script type="text/javascript" src="Funsies/BubbleCannons/bcplayer.js"></script>
+    <script type="text/javascript" src="Funsies/BubbleCannons/bcenemy.js"></script>
+    <script type="text/javascript" src="Funsies/BubbleCannons/cannons.js"></script>
     
     <script type="text/javascript" src="links.js"></script>
         
     <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet" type="text/css">
     
-    <link rel="stylesheet" href="funsiestyle.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background: linear-gradient(rgb(100,200,255), rgb(0, 20, 200))">
+<body>
     <canvas id="BackgroundC" class="bg" syle="position: fixed;margin: 0;width: 100%;height: 100%;border: 0;">Canvas is not supported</canvas>
     
     <!--    Split everything into a universal div-->
@@ -69,7 +72,7 @@
             </canvas>
         </div>
         
-        <div style="margin:auto; width: 766; height: 60">
+        <div style="margin:auto; width:766">
             <canvas class="section" id="Canvas" width=766 height=766 style="position:relative; margin: auto; margin-top:100; margin-bottom: 100; width:766; height:766">CANVAS NOT SUPPORTED</canvas>
         </div>
         
@@ -96,17 +99,14 @@
             }
 
         </script>
-            
-        <script type="text/javascript" src="layers.js">
-            display();
-        </script>
          
-        <script type="text/javascript" src="BubbleCannons/bubblecannons.js">
+        <script src="layers.js"></script>
+        
+        <script type="text/javascript" src="Funsies/BubbleCannons/bubblecannons.js">
             console.log("THIS IS THE BEGINNING");
             e();
             init();
             draw();
-            ldraw();
         </script>
 
     </div>

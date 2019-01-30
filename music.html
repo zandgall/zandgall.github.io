@@ -2,6 +2,8 @@
     <head>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     <title>Zandgall - Music</title>
     <meta name="description" content="Music">
@@ -14,11 +16,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background: rgb(100,200,255)">
+<body>
     
     <canvas id="BackgroundC" class="bg" syle="position: fixed;margin: 0;width: 100%;height: 100%;border: 0;">Canvas is not supported</canvas>
     
-    <header class="title" style="text-align: center;">ZandgallGames</header>
+    <header class="title" style="position: relative;text-align: center;">ZandgallGames</header>
     
     <div style="animation: frombottom 2s 0s 1 forwards;" class = "splitter"></div>
     
@@ -58,7 +60,7 @@
         </canvas>
     </div>
     
-    <div class="section" style="margin-left: auto; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
+    <div class="section" style="margin-left: auto; margin-bottom: 50; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
     
         <h2 style="margin-left: 20; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.1s 1 forwards">Social media!</h2>
         <p style="margin-left: 10; margin-top: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.2s 1 forwards">You can find my songs on bandcamp.<br>
@@ -71,7 +73,7 @@
         </audio>
         
         <h3 style="margin-left: 20; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.1s 1 forwards">Playtime</h3>
-        <audio controls>
+        <audio controls data-chrome="noheader nofooter noborders transparent">
             <source src="Playtime.mp3" type="audio/mpeg">
         </audio>
         
@@ -122,24 +124,10 @@
             
     </script>
         
-    <script type="text/javascript" src="layers.js"></script>    
-        
-    <script type="text/javascript" src="links.js"></script>
+    <script type="text/javascript" src="layers.js"></script>
         
     </div>
-    
-    <footer style="margin-left: auto; margin-right: auto; margin-top: 5; width: 766; min-height: 50" class="section">
-        
-        <a href="index.html" style="margin-left: 10">- Home -</a>
-        <a href="download.html" style="margin-left: 10">- Download -</a>
-        <a href="contact.html" style="margin-left: 10">- Contact -</a>
-        <a href="whatsnew.html" style="margin-left: 10">- What's new -</a>
-        <a href="music.html" style="margin-left: 10">- Music -</a>
-        
-        <br>
-        
-    </footer>
-    
+
 </body>
 </html>
 

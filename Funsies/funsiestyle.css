@@ -16,7 +16,11 @@ table, tt, th, td {
             -1.5px -1.5px 0 #000,
             1.5px -1.5px 0 #000,
             -1.5px 1.5px 0 #000,
-            1.5px 1.5px 0 #000;
+            1.5px 1.5px 0 #000,
+            0px -1.5px 0 #000,
+            0px 1.5px 0 #000,
+            -1.5px 0px 0 #000,
+            1.5px 0px 0 #000;
         }
         
         .splitter {
@@ -29,9 +33,9 @@ table, tt, th, td {
         }
         
         .section {
-            background: linear-gradient(rgb(100, 200, 255), rgb(50, 100, 255));
+            background: linear-gradient(rgb(124, 182, 229), rgb(40, 87, 232));
             border-radius: 15px;
-            border: 5px solid blue;
+            border: 5px solid rgb(42, 57, 232);
         }
         
         .bg {
@@ -53,21 +57,21 @@ table, tt, th, td {
             margin: 0px;
             border: 0;
             display: block;  /* No floating content on sides */
-            background: linear-gradient(rgb(100,200,255), rgb(0, 20, 200));
+            background: linear-gradient(rgb(100,200,255), rgb(94, 133, 239));
         }
         
         @keyframes frombottom {
-            from   {background-color: rgba(0, 0, 0, 0); color: rgba(0, 0, 0, 0); top:100px;}
-            to {background-color: rgba(0, 0, 0, 255); color: rgba(0, 0, 0, 255); top:0px;}
+            from   {top:100px;}
+            to {top:0px;}
         }
         @keyframes fb {
-            from   {color: rgba(0, 0, 0, 0); outline-color: rgba(0,0,0,0); border-color: rgba(0,0,255,0); top:100px;}
-            to {color: black; outline-color: black; border-color: rgba(0,0,255,255); top:0px;}
+            from   {}
+            to {}
         }
         
         @keyframes fbimg {
-            from   {opacity: 0.0; outline-color: rgba(0,0,0,0); top:100px;}
-            to {opacity: 1.0; outline-color: black; top:0px;}
+            from   {opacity:1}
+            to {opacity:1}
         }
         
 </style>
