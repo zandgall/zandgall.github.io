@@ -1,6 +1,6 @@
 var o1 = -150, o2 = -50, o3 = 100;
 var r1 = 8, r2 = 4, r3 = 1.75, r4 = 16;
-var s1 = Math.random()+1, s2=Math.random()+1, s3=Math.random()+1, s4=Math.random();
+var s1 = Math.random()+1, s2=Math.random()+1, s3=Math.random()+1, s4=Math.random()+1;
 
 var stars = [{x:-10, y:-10, w: 1}];
 
@@ -8,7 +8,7 @@ var cloudImgs = [];
 
 var clouds = [{x:-60, y:-36, t:1, o:1}];
 
-var night = false;
+var night = false, exfx = true;
 
 var lmouseX = 0, lmouseY = 0;
 
@@ -67,9 +67,14 @@ function display() {
     if(night){
         c.fillStyle="rgb(13, 4, 38)";
         c.fillRect(0, 0, layerCan.width, layerCan.height);
+        if(exfx)
+            for(var i = 0; i<50; i++){
+                c.fillStyle="rgba(200, 200, 255, 0.002)";
+                c.beginPath();
+                c.ellipse(50*s4+18, 80-scrollY/r4+18, i*4, i*4, 0, 0, 180, false);
+                c.fill();
+            }
     }
-    
-    window.localStorage['zandgall_dayNight'] = night ? "night" : "day";
             
     var img0 = new Image();
     img0.src = "BGImg0.png";
@@ -89,19 +94,19 @@ function display() {
         }
     }
     
-    c.drawImage(img3, 50*s4, 50-scrollY/r4);
+    c.drawImage(img3, 50*s4, 80-scrollY/r4);
     
     c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1, 6480, 2322);
     c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2, 6880, 2722);
     c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3, 7280, 3122);
     c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1+2322, 6480, -2322);
     c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2+2722, 6880, -2722);
-    if(!night){
+    if(!night && exfx){
         for(var i = 0; i<clouds.length; i++) {
-            clouds[i].x+=(1/clouds[i].o)*0.1;
+            clouds[i].x+=(1/clouds[i].o);
             if(clouds[i].x>layerCan.width)
                 clouds[i].x=-60;
-            c.drawImage(cloudImgs[clouds[i].t], clouds[i].x, clouds[i].y-scrollY/clouds[i].o);
+            c.drawImage(cloudImgs[clouds[i].t], clouds[i].x, clouds[i].y-scrollY/clouds[i].o, 74-clouds[i].o*2, 56-clouds[i].o*2);
         }
     }
     c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3+3122, 7280, -3122);
@@ -120,9 +125,13 @@ function display() {
     
     c.fillRect(0, 0, layerCan.width, layerCan.height);
     
+    c.font = "20px monospace";
+    
+    outText(c, "ExtraFX", layerCan.width-80, 20-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
+    
     if(lmouseX>s4*50-5 && lmouseX<s4*50+31){
-        if(lmouseY-scrollY>50-scrollY/r4-5&&lmouseY-scrollY<50-scrollY/r4+31){
-            c.drawImage(img3, 50*s4, 50-scrollY/r4);
+        if(lmouseY-scrollY>50-scrollY/r4-5&&lmouseY-scrollY<80-scrollY/r4+31){
+            c.drawImage(img3, 50*s4, 80-scrollY/r4);
             document.body.style.cursor="pointer";
             if(lmouseClicked){
                 night = !night;
@@ -134,10 +143,21 @@ function display() {
             document.body.style.cursor="";
         }
     } else {
+        
+        if(lmouseX>layerCan.width-100 && lmouseY<20){
+            outText(c, "ExtraFX", layerCan.width-80, 20-scrollY, "rgba(0, 0, 255, 0.59)", 1, exfx ? "#ffffff" : "rgba(0,0,0,0)");
+            if(lmouseClicked){
+                exfx = !exfx;
+            }
+        }
+        
         document.body.style.cursor="";
     }
     
     ldraw();
+    
+    window.localStorage['zandgall_dayNight'] = night ? "night" : "day";
+    window.localStorage['zandgall_exFx'] = exfx ? "true" : "false";
     
     lmouseClicked=false;
 }
@@ -163,7 +183,7 @@ function mesh(a, b, r) {
             }
 
 function desire(desire, current) {
-    return (desire-current)*0.1;
+    return ((desire-current)*0.3);
 }
 
 function ldraw() {
@@ -195,7 +215,9 @@ function ldraw() {
     
     c.font='16px monospace';
     if(ih){
-        is += desire(55, is);
+        if(exfx)
+            is += desire(55, is);
+        else is = 55;
         
         outText(c, "Homepage", ix, iy+is-14, "#a6ebff", 1, "#0000ff");
         outText(c, "About", ix, iy+is+4, "#a6ebff", 1, "#0000ff");
@@ -206,10 +228,14 @@ function ldraw() {
         else if(lmY>iy+is-14&&lmY<iy+is+4)
             c.fillText("About", ix, iy+is+4);
     } else {
+        if(exfx)
         is += desire(30, is);
+        else is=30;
     }
     if(dh){
+        if(exfx)
         ds += desire(55, ds);
+        else ds = 55;
         
         outText(c, "Arvopia", dx, iy+ds-14, "#a6ebff", 1, "#0000ff");
         outText(c, "LevelCreator", dx, iy+ds+4, "#a6ebff", 1, "#0000ff");
@@ -223,10 +249,14 @@ function ldraw() {
         else if(lmY>iy+ds+4&&lmY<iy+ds+22)
             c.fillText("Arvopia Builds", dx, iy+ds+22);
     } else {
+        if(exfx)
         ds += desire(30, ds);
+        else ds = 30;
     }
     if(nh){
+        if(exfx)
         ns += desire(55, ns);
+        else ns=55;
         
         outText(c, "Teasers", nx, iy+ns-14, "#a6ebff", 1, "#0000ff");
         outText(c, "Future Plans", nx, iy+ns+4, "#a6ebff", 1, "#0000ff");
@@ -240,11 +270,14 @@ function ldraw() {
         else if(lmY>iy+ns+4&&lmY<iy+ns+22)
             c.fillText("What's Old", nx, iy+ns+22);
     } else {
+        if(exfx)
         ns += desire(30, ns);
+        else ns=30;
     }
     if(ch){
+        if(exfx)
         cs += desire(55, cs);
-        
+        else cs=55;
         outText(c, "Social Media", cx, iy+cs-14, "#a6ebff", 1, "#0000ff");
         outText(c, "Bug Reports", cx, iy+cs+4, "#a6ebff", 1, "#0000ff");
         outText(c, "Contributions", cx, iy+cs+22, "#a6ebff", 1, "#0000ff");
@@ -257,10 +290,14 @@ function ldraw() {
         else if(lmY>iy+cs+4&&lmY<iy+cs+22)
             c.fillText("Contributions", cx, iy+cs+22);
     } else {
+        if(exfx)
         cs += desire(30, cs);
+        else cs=30;
     }
     if(mh){
+        if(exfx)
         ms += desire(55, ms);
+        else ms = 55;
         outText(c, "Music", mx, iy+ms-14, "#a6ebff", 1, "#0000ff");
         outText(c, "Fun stuff", mx, iy+ms+4, "#a6ebff", 1, "#0000ff");
          c.fillStyle="#ffff00";
@@ -269,7 +306,9 @@ function ldraw() {
         else if(lmY>iy+ms-14&&lmY<iy+ms+4)
             c.fillText("Fun stuff", mx, iy+ms+4);
     } else {
+        if(exfx)
         ms += desire(30, ms);
+        else ms = 30;
     }
     
     if((nh||dh||ih||ch||mh) && lmY>iy+Math.max(ms,cs,ns,is,ds)-34)
@@ -302,8 +341,8 @@ function ldraw() {
 
 function cssNight() {
     if(night) {
-        $(".section").css("background", "linear-gradient(rgb(37, 37, 56), rgb(27, 28, 42))");
-        $(".section").css("border", "5px solid rgb(3, 9, 52)");
+        $(".section").css("background", "linear-gradient(rgb(53, 53, 88), rgb(30, 32, 56))");
+        $(".section").css("border", "2px solid rgba(3, 9, 52, 0.5)");
         $("p").css("color", "#e8eaf5");
         $("h1").css("color", "rgb(209, 207, 227)");
         $("h2").css("color", "#d1cfe3");
@@ -314,7 +353,7 @@ function cssNight() {
         $("img").css("opacity", "0.7");
     } else {
         $(".section").css("background", "linear-gradient(rgb(124, 182, 229), rgb(75, 147, 185))");
-        $(".section").css("border", "5px solid rgb(59, 99, 163)");
+        $(".section").css("border", "2px solid rgba(59, 99, 163, 0.5)");
         $("p").css("color", "#37383c");
         $("h1").css("color", "#201f2a");
         $("h2").css("color", "#201f2a");
@@ -340,7 +379,7 @@ function layerInit() {
     
     console.log("INITIATE");
     
-    window.setInterval(display, 10);
+    window.setInterval(display, 30);
     
     cloudImgs[0] = new Image();
     cloudImgs[0].src="assets/Cloud1.png";
@@ -352,6 +391,7 @@ function layerInit() {
     cloudImgs[3].src="assets/Cloud4.png";
     
     night = (localStorage["zandgall_dayNight"] || "day") == "night";
+    exfx = (localStorage["zandgall_exFx"] || "true") == "true"; 
     
 }
 

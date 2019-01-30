@@ -3,9 +3,7 @@
     <head>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Zandgall - Template</title>
     <meta name="description" content="Web1">
     <meta name="author" content="Zandgall">
@@ -23,7 +21,7 @@
     <!--    Split everything into a universal div-->
     <div id="universal">
 
-        <header class="title" style="position:relative; text-align: center;">ZandgallGames</header>
+        <header class="title" style="position: relative; text-align: center;">ZandgallGames</header>
 
         <div style="animation: frombottom 2s 0s 1 forwards;" class = "splitter"></div>
 
@@ -32,10 +30,7 @@
                    margin: 0;
                    text-align: center;
                    position: relative;
-                   color: rgba(0,0,0,0);
-                   animation-timing-function: step-end;
-                   animation: fb 2s 0.25s 1 forwards;
-                   ">Welcome to the site!</h1>
+                   ">Page name!</h1>
         <h2 style="
                    margin: 0;
                    text-align: center;
@@ -44,75 +39,40 @@
                    font-style: italic;
                    font-size: 14;
                    position: relative;
-                   color: rgba(0,0,0,0);
-                   animation: fb 2s 0.5s 1 forwards;
-                   ">A resource for Arvopia and other projects</h2>
+                   ">Bad pun about page!</h2>
 
-        <div class = "splitter" style="animation: frombottom 2s 0.75s 1 forwards;"></div>
-
-        <div style="margin-left: auto; margin-right: auto; margin-top: 10; width: 766; height: 200">
-            
-            <a href="index.html">
-                <img class = "section" style="opacity: 0; float:right;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Splash.png" alt="Arvopia title" height = 200>
-                
-                <img class = "section" style="opacity: 0; float:left;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Icon.png" alt="Icon" width=200 height = 200>
-            </a>
-        </div>
+        <div class = "splitter"></div>
         
         <div style="margin:auto; width: 766; height: 60">
-            <canvas id="links" width=766 height="200" style="z-index: 20; position:relative; width:766; height:200; margin-left: auto; margin-right: auto; animation: fbimg 2s 1s 1 forwards">
+            <canvas id="links" width=766 height="200" style="z-index: 20; position:relative; width:766; height:200; margin-left: auto; margin-right: auto">
             </canvas>
         </div>
 
-        <div class="section" style="margin-left: auto; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
-
-            <h2 style="margin-left: 20; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.1s 1 forwards">
-                 Social media!
-            </h2>
+        <div class="section" style="position: relative; margin-left: auto; margin-right: auto; margin-top: 20; width: 766">
             
-            <p style="margin-left: 10; margin-top: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.2s 1 forwards">
-                We got Twitter and Reddit, like mentioned<br>on the home page. But there's also bandcamp where you can find my songs.<br><a style="color: rgba(0,0,0,0); animation: fb 2s 1.4s 1 forwards" href="https://www.reddit.com/r/zandersdumbprojects" target="_blank">r/zandersdumbprojects</a>
-                <br>
-                <a href="https://twitter.com/zandgall?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false">
-                    Follow @zandgall
-                </a>
-                <br>
-            <a style="color: rgba(0,0,0,0); animation: fb 2s 1.4s 1 forwards" href=https://zandgall.bandcamp.com/releases target="_blank">Bandcamp</a></p>
-
-            <h2 style="margin-left: 20; margin-bottom: 0; font-family: sans-serif; font-weight: bold; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.3s 1 forwards">
-                Email!
-            </h2>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-            <p style="margin-left: 10; margin-top: 0; font-family: sans-serif; font-weight: bold; top = 1000; position: relative; color: rgba(0,0,0,0); animation: fb 2s 1.4s 1 forwards">
-                A preferred way of contacting me would be through email, <u>Alexanderdgall@gmail.com</u> <br>if you don't have an email, you can also contact me straight from Arvopia!
+            <!--STUFF HERE-->
+            <h1 class="basictext"><a href=https://zandgall.bandcamp.com/releases>Bandcamp!</a></h1>
+            
+            <h1 class="basictext">Twitter and Reddit!</h1>
+            <p class="basictext">
+                <a href="https://twitter.com/zandgall?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false">Follow @zandgall</a>
+                <a href = "https://reddit.com/r/Arvopia" target="_blank"><img src="assets/arvopia-reddit-banner.png" alt="Reddit" width="84" height="28"></a>
             </p>
-        
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             
-            <img id="tree" src=Tree.png width = 0 height = 0 alt="The Tree">
+            <p class="basictext">
+                <a data-theme="dark" data-chrome="noheader nofooter noborders transparent" class="twitter-timeline" data-width="720" data-num="0" data-height="800" data-link-color="#8f70ff" href="https://twitter.com/zandgall?ref_src=twsrc%5Etfw" style="margin: auto">
+                    My Twitter</a> 
+<!--
+                <a class="twitter-timeline" data-width="720" data-num="0" data-height="800" data-link-color="#8f70ff" href="https://twitter.com/zandgall?ref_src=twsrc%5Etfw" data-theme="dark"style="margin: auto">
+                    My Twitter</a> 
+-->
+            </p>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" style="margin: auto"></script>
             
-            <img id="BGImg0" src="BGImg0.png" width=0 height=0>
-            <img id="BGImg1" src="BGImg1.png" width=0 height=0>
-            <img id="BGImg2" src="BGImg2.png" width=0 height=0>
-        <script>
-
-            function Tree(x, y) {
-                var c = document.getElementById("myCanvas");
-                var ctx = c.getContext("2d");
-                ctx.drawImage(document.getElementById("tree"), x, y, 40, 100);
-            }
-
-            window.onload = function() {
-
-                for(var i = 0; i<20; i++) {
-                    Tree(Math.floor(Math.random()*766), 0);
-                }
-            }
-
-        </script>
             
-        <script type="text/javascript" src="layers.js">
-        </script>
+            <script type="text/javascript" src="layers.js">
+            </script>
                         
 
         </div>
@@ -122,41 +82,6 @@
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

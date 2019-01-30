@@ -3,9 +3,12 @@
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Zandgall - Template</title>
     <meta name="description" content="Web1">
     <meta name="author" content="Zandgall">
+    
+        <script src=layers.js></script>    
     
     <link rel="icon" href="Icon.png"> 
     
@@ -15,16 +18,16 @@
         
     <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet" type="text/css">
     
-    <link rel="stylesheet" href="funsiestyle.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background: linear-gradient(rgb(100,200,255), rgb(0, 20, 200))">
+<body>
     <canvas id="BackgroundC" class="bg" syle="position: fixed;margin: 0;width: 100%;height: 100%;border: 0;">Canvas is not supported</canvas>
     
     <!--    Split everything into a universal div-->
     <div id="universal">
 
-        <header class="title" style="text-align: center;">ZandgallGames</header>
+        <header class="title" style="position: relative;text-align: center;">ZandgallGames</header>
 
         <div style="animation: frombottom 2s 0s 1 forwards;" class = "splitter"></div>
 
@@ -50,19 +53,9 @@
                    ">A resource for Arvopia and other projects</h2>
 
         <div class = "splitter" style="animation: frombottom 2s 0.75s 1 forwards;"></div>
-
-        <div style="margin-left: auto; margin-right: auto; margin-top: 10; width: 766; height: 200">
-            
-            <a href="index.html">
-                <img class = "section" style="opacity: 0; float:right;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Splash.png" alt="Arvopia title" height = 200>
-                
-                <img class = "section" style="opacity: 0; float:left;  position: relative; animation: fbimg 2s 1s 1 forwards" src="Icon.png" alt="Icon" width=200 height = 200>
-            </a>
-        </div>
         
-        <div style="margin:auto; width: 766; height: 60">
-            <canvas id="links" width=766 height="200" style="z-index: 20; position:relative; width:766; height:200; margin-left: auto; margin-right: auto; animation: fbimg 2s 1s 1 forwards">
-            </canvas>
+        <div style="margin:auto; width: 766; height: 200">
+            <canvas id="links" width=766 height="200" style="position:relative; width:766; height:200; margin-left: auto; margin-right: auto;"></canvas>
         </div>
         
         <div style="margin:auto; width: 766; height: 60">
@@ -103,12 +96,8 @@
             <input type="range" min=0.1 max=20 value=2 class="slider" id="PARTICLESPEED" name = "Particle Speed">
         </div>
 -->
-        
-        <script type="text/javascript" src="layers.js">
-            display();
-        </script>
          
-        <script type="text/javascript" src="NOISE/fire.js">
+        <script type="text/javascript" src="Funsies/NOISE/fire.js">
             
         </script>
 
