@@ -8,7 +8,8 @@ var cloudImgs = [];
 
 var clouds = [{x:-60, y:-36, t:1, o:1}];
 
-var night = false, exfx = true;
+var night = false, exfx = true, layerbackground = false;
+var lmenu0 = 20000;
 
 var lmouseX = 0, lmouseY = 0;
 
@@ -96,11 +97,13 @@ function display() {
     
     c.drawImage(img3, 50*s4, 80-scrollY/r4);
     
-    c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1, 6480, 2322);
-    c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2, 6880, 2722);
-    c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3, 7280, 3122);
-    c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1+2322, 6480, -2322);
-    c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2+2722, 6880, -2722);
+    if(layerbackground) {
+        c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1, 6480, 2322);
+        c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2, 6880, 2722);
+        c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3, 7280, 3122);
+        c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1+2322, 6480, -2322);
+        c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2+2722, 6880, -2722);
+    }
     if(!night && exfx){
         for(var i = 0; i<clouds.length; i++) {
             clouds[i].x+=(1/clouds[i].o);
@@ -109,7 +112,8 @@ function display() {
             c.drawImage(cloudImgs[clouds[i].t], clouds[i].x, clouds[i].y-scrollY/clouds[i].o, 74-clouds[i].o*2, 56-clouds[i].o*2);
         }
     }
-    c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3+3122, 7280, -3122);
+    if(layerbackground)
+        c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3+3122, 7280, -3122);
     
     if(night) {
         c.fillStyle = "rgba(15, 8, 33, 0.2)";
@@ -127,7 +131,11 @@ function display() {
     
     c.font = "20px monospace";
     
-    outText(c, "ExtraFX", layerCan.width-80, 20-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
+    if(lmouseX>layerCan.width-100)
+        lmenu0+=desire(layerCan.width-80, lmenu0);
+    else lmenu0+=desire(layerCan.width, lmenu0);
+    outText(c, "Layers", lmenu0+10, 20-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
+    outText(c, "ExtraFX", lmenu0, 40-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
     
     if(lmouseX>s4*50-5 && lmouseX<s4*50+31){
         if(lmouseY-scrollY>50-scrollY/r4-5&&lmouseY-scrollY<80-scrollY/r4+31){
@@ -143,21 +151,28 @@ function display() {
             document.body.style.cursor="";
         }
     } else {
-        
+        document.body.style.cursor="";
         if(lmouseX>layerCan.width-100 && lmouseY<20){
-            outText(c, "ExtraFX", layerCan.width-80, 20-scrollY, "rgba(0, 0, 255, 0.59)", 1, exfx ? "#ffffff" : "rgba(0,0,0,0)");
+            document.body.style.cursor="pointer";
+            outText(c, "Layers", lmenu0+10, 20-scrollY, "rgba(0, 0, 255, 0.59)", 1, layerbackground ? "#ffffff" : "rgba(0,0,0,0)"); 
+            if(lmouseClicked){
+                layerbackground = !layerbackground;
+            }
+        }
+        else if(lmouseX>layerCan.width-100 && lmouseY<40 && lmouseY>20){
+            document.body.style.cursor="pointer";
+            outText(c, "ExtraFX", lmenu0, 40-scrollY, "rgba(0, 0, 255, 0.59)", 1, exfx ? "#ffffff" : "rgba(0,0,0,0)");
             if(lmouseClicked){
                 exfx = !exfx;
             }
         }
-        
-        document.body.style.cursor="";
     }
     
     ldraw();
     
     window.localStorage['zandgall_dayNight'] = night ? "night" : "day";
     window.localStorage['zandgall_exFx'] = exfx ? "true" : "false";
+    window.localStorage['zandgall_layerbackground'] = layerbackground ? "true" : "false";
     
     lmouseClicked=false;
 }
@@ -392,6 +407,7 @@ function layerInit() {
     
     night = (localStorage["zandgall_dayNight"] || "day") == "night";
     exfx = (localStorage["zandgall_exFx"] || "true") == "true"; 
+    layerbackground = (localStorage["zandgall_layerbackground"] || "true") == "true"; 
     
 }
 
