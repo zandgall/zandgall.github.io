@@ -22,7 +22,7 @@ var initiated = false;
 
 var layerCan = document.getElementById("BackgroundC");
 
- var ix = 0;
+var ix = 0;
 var iy = 30;
 var iw = 100;
 var is = 20;
@@ -275,7 +275,7 @@ function ldraw() {
         
         outText(c, "Teasers", nx, iy+ns-14, "#a6ebff", 1, "#0000ff");
         outText(c, "Future Plans", nx, iy+ns+4, "#a6ebff", 1, "#0000ff");
-        outText(c, "What's Old", nx, iy+ns+22, "#a6ebff", 1, "#0000ff");
+        outText(c, "History", nx, iy+ns+22, "#a6ebff", 1, "#0000ff");
         
         c.fillStyle="#ffff00";
         if(lmY>iy+ns-34&&lmY<iy+ns-14)
@@ -283,7 +283,7 @@ function ldraw() {
         else if(lmY>iy+ns-14&&lmY<iy+ns+4)
             c.fillText("Future Plans", nx, iy+ns+4);
         else if(lmY>iy+ns+4&&lmY<iy+ns+22)
-            c.fillText("What's Old", nx, iy+ns+22);
+            c.fillText("History", nx, iy+ns+22);
     } else {
         if(exfx)
         ns += desire(30, ns);
@@ -294,16 +294,10 @@ function ldraw() {
         cs += desire(55, cs);
         else cs=55;
         outText(c, "Social Media", cx, iy+cs-14, "#a6ebff", 1, "#0000ff");
-        outText(c, "Bug Reports", cx, iy+cs+4, "#a6ebff", 1, "#0000ff");
-        outText(c, "Contributions", cx, iy+cs+22, "#a6ebff", 1, "#0000ff");
         
         c.fillStyle="#ffff00";
         if(lmY>iy+cs-34&&lmY<iy+cs-14)
             c.fillText("Social Media", cx, iy+cs-14);
-        else if(lmY>iy+cs-14&&lmY<iy+cs+4)
-            c.fillText("Bug Reports", cx, iy+cs+4);
-        else if(lmY>iy+cs+4&&lmY<iy+cs+22)
-            c.fillText("Contributions", cx, iy+cs+22);
     } else {
         if(exfx)
         cs += desire(30, cs);
@@ -356,18 +350,18 @@ function ldraw() {
 
 function cssNight() {
     if(night) {
-        $(".section").css("background", "linear-gradient(rgb(53, 53, 88), rgb(30, 32, 56))");
+        $(".section").css("background", "linear-gradient(rgb(56, 56, 78), rgb(44, 46, 64))");
         $(".section").css("border", "2px solid rgba(3, 9, 52, 0.5)");
         $("p").css("color", "#e8eaf5");
-        $("h1").css("color", "rgb(209, 207, 227)");
-        $("h2").css("color", "#d1cfe3");
-        $("h3").css("color", "#d1cfe3");
-        $("h4").css("color", "#d1cfe3");
-        $("a").css("color", "#c27bff");
-        $(".title").css("color", "#d1cfe3");
+        $("h1").css("color", "rgb(234, 232, 248)");
+        $("h2").css("color", "#e3e3e6");
+        $("h3").css("color", "#e3e3e6");
+        $("h4").css("color", "#e3e3e6");
+        $("a").css("color", "#f239f2");
+        $(".title").css("color", "#e3e3e6");
         $("img").css("opacity", "0.7");
     } else {
-        $(".section").css("background", "linear-gradient(rgb(124, 182, 229), rgb(75, 147, 185))");
+        $(".section").css("background", "linear-gradient(rgb(147, 198, 237), rgb(132, 184, 211))");
         $(".section").css("border", "2px solid rgba(59, 99, 163, 0.5)");
         $("p").css("color", "#37383c");
         $("h1").css("color", "#201f2a");
@@ -447,9 +441,9 @@ function lmove(ev) {
                 
     nh=(lmX>=nx && lmX<nx+nw && lmY>0 && lmY<ns+iy+(nh ? 22: -ns/2));
                 
-    ch=(lmX>=cx && lmX<cx+cw && lmY>0 && lmY<cs+iy+(ch ? 22: -cs/2));
+    ch=(lmX>=cx && lmX<cx+cw && lmY>0 && lmY<cs+iy-14);
                 
-    mh=(lmX>=mx && lmX<mx+mw && lmY>0 && lmY<ms+iy+(mh ? 22: -ms/2));
+    mh=(lmX>=mx && lmX<mx+mw && lmY>0 && lmY<ms+iy+4);
     
     lmouseX=x;
     lmouseY=y;
@@ -474,15 +468,11 @@ function lclick(e) {
         if(lmY>iy+ns-14 && lmY<iy+ns+4)
             window.location.href="futureplans.html";
         else if(lmY>iy+ns+4 && lmY<iy+ns+22)
-            window.location.href="whatsold.html";
+            window.location.href="history.html";
         else if(lmY>iy+ns-34 && lmY<iy+ns-14)window.location.href="teasers.html";
     }
     if(ch){
-        if(lmY>iy+cs-14 && lmY<iy+cs+4)
-            window.location.href="bugreports.html";
-        else if(lmY>iy+cs+4 && lmY<iy+cs+22)
-            window.location.href="contribute.html";
-        else if(lmY>iy+cs-34 && lmY<iy+cs-14) window.location.href="socialmedia.html";
+        if(lmY>iy+cs-34 && lmY<iy+cs-14) window.location.href="socialmedia.html";
     }
     if(mh){
         if(lmY>iy+ms-34 && lmY<iy+ms-14)

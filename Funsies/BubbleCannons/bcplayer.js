@@ -430,10 +430,17 @@ function bcpren(c) {
     
     var reload = 300;
     
+    var j = 0;
+    
     //Render bullets
     for(var i = 0; i<maxBullets; i++){
         renderBullet(bullets[i], c);
         reload = Math.min(reload, bullets[i].l);
+        if(bullets[i].l<0){
+            renderBullet({x:15, y:can.height-87-j*10, t:bullets[i].t, d:0, l:2, s:10, cr:bullets[i].cr, cg:bullets[i].cg, cb:bullets[i].cb}, c);
+//                renderBullet(
+            j++;
+        }
     }
     c.strokeStyle="#1166ff";
     c.lineWidth=2;

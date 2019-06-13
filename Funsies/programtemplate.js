@@ -5,9 +5,6 @@ var mouseDown = false, mouseLeft = false, mouseRight=false, mouseClicked = false
 var keyTyped=false, keyPressed=false;
 var keys = [false], currentKey = "w";
 
-
-
-
 var kode = {
     arrowright: false,
     arrowleft: false,
@@ -135,7 +132,7 @@ function keyUp(e) {
     keyPressed=false;
 }
 
-window.onload = function() {
+$("document").ready(new function(){
     init();
     draw();
-}
+});

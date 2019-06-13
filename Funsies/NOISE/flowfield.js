@@ -40,7 +40,6 @@ var kode = {
     }
 }
 
-//"rgb(255, 137, 205)"
 
 function init() {
     

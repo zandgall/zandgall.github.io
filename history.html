@@ -6,7 +6,7 @@
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-    <title>Zandgall - What's Old</title>
+    <title>Zandgall - History</title>
     <meta name="description" content="Web1">
     <meta name="author" content="Zandgall">
     
@@ -58,6 +58,87 @@
 
         <div class="section" style="margin-left: auto; margin-right: auto; margin-top: 20; width: 766; border-color: rgba(0,0,0,0); position: relative; animation: fb 2s 1.05s 1 forwards">
             
+            <script>
+                
+                var x = 0, y = 0;
+                
+                window.setInterval(size, 30);
+                
+                function size() {
+                    update("V0.7", 800, 900, -20, -70);
+                }
+                
+                function update(id, minwidth, maxwidth, minleft, maxleft){
+                    
+                    var element = document.getElementById(id);
+                    
+                    var box = element.getBoundingClientRect();
+                    
+                    var left = box.left + document.body.scrollLeft;
+                    var top = box.top + document.body.scrollTop;
+                    
+                    var v = element.width, h = element.height;
+                    var b = parseFloat(element.offsetLeft);
+                    
+                    if(v==undefined)
+                        v = parseFloat(element.style.width);
+                    if(v==undefined)
+                        v = minwidth;
+                    if(h==undefined)
+                        h = box.height;
+                    if(h==undefined)
+                        h = v;
+                    var on = (x>left && x<v+left) && (y > top && y<h+top);
+                    
+//                    console.log(top, left, v, h, id);
+                    
+                    var ratio = h/v;
+                    
+                    element.width=(v+desire((on ? maxwidth : minwidth), v));
+                    element.height = element.width*ratio;
+                    element.style.width=""+(v+desire((on ? maxwidth : minwidth), v));
+                    element.style.marginLeft=""+(b+desire((on ? maxleft : minleft), b));
+                }
+                
+                function updater(id, minwidth, maxwidth, minleft, maxleft){
+                    
+                    var element = document.getElementById(id);
+                    
+                    var box = element.getBoundingClientRect();
+                    
+                    var left = box.left + document.body.scrollLeft;
+                    var top = box.top + document.body.scrollTop;
+                    
+                    var v = element.width, h = element.height;
+                    var b = parseFloat(element.style.marginRight);
+                    
+                    if(v==undefined)
+                        v = parseFloat(element.style.width);
+                    if(v==undefined)
+                        v = minwidth;
+                    if(h==undefined)
+                        h = box.height;
+                    if(h==undefined)
+                        h = v;
+                    var on = (x>left && x<v+left) && (y > top && y<h+top);
+                    
+//                    console.log(top, left, v, h, id);
+                    
+                    var ratio = h/v;
+                    
+                    element.width=(v+desire((on ? maxwidth : minwidth), v));
+                    element.height = element.width*ratio;
+                    element.style.width=""+(v+desire((on ? maxwidth : minwidth), v));
+                    element.style.marginRight=""+(b+desire((on ? maxleft : minleft), b));
+                }
+                
+                
+                $(document).mousemove(function(e){
+                    x = e.pageX;
+                    y = e.pageY;
+                });
+            </script>
+
             <h3 class="basictext" style="animation: fb 2s 1.1s 1 forwards">
                 It all began...
             </h3>
@@ -204,7 +285,7 @@
                 There are a lot more changes, but for further changes, consult the changelog or download the game and find out for yourself.
             </h4>
             
-            <img id="V0.7" class="section" style="margin-left: auto; margin-right: auto; width: 756; position: relative" width="756" src="assets/0.7Screenshot%201.png" alt="Version 0.7">
+            <img id="V0.7" class="section" style="width: 756; height:auto; position: relative" src="assets/0.7Screenshot%201.png" alt="Version 0.7">
             
             <h3 class="basictext" style="animation: fb 2s 1.1s 1 forwards">
                 Version 0.7
