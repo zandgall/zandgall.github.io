@@ -49,22 +49,22 @@ var ms = 20;
 var mh = false;
 
 function display() {
-    layerCan = document.getElementById("BackgroundC");            
-    
+    layerCan = document.getElementById("BackgroundC");
+
     if(layerCan.width!=canw.width||layerCan.height!=canw.height){
         canw.width=layerCan.width;
         canw.height=layerCan.height;
         initStars();
         initClouds();
     }
-    
+
     var c = layerCan.getContext("2d");
-    
+
     c.canvas.width=window.innerWidth;
     c.canvas.height=window.innerHeight;
-    
+
     c.clearRect(0,0,layerCan.width,layerCan.height);
-    
+
     if(night){
         c.fillStyle="rgb(13, 4, 38)";
         c.fillRect(0, 0, layerCan.width, layerCan.height);
@@ -76,27 +76,27 @@ function display() {
                 c.fill();
             }
     }
-            
+
     var img0 = new Image();
     img0.src = "BGImg0.png";
     var img1 = new Image();
     img1.src = "BGImg1.png";
     var img2 = new Image();
     img2.src = "BGImg2.png";
-    
+
     var img3 = new Image();
     img3.src = "assets/Sun.png";
     if(night){
         img3.src = "assets/Moon.png";
-        
+
         c.fillStyle = "rgb(100, 100, 120)";
         for(var i = 0; i<100; i++) {
             c.fillRect(stars[i].x, stars[i].y, stars[i].w, stars[i].w);
         }
     }
-    
+
     c.drawImage(img3, 50*s4, 80-scrollY/r4);
-    
+
     if(layerbackground) {
         c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1, 6480, 2322);
         c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2, 6880, 2722);
@@ -114,29 +114,29 @@ function display() {
     }
     if(layerbackground)
         c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3+3122, 7280, -3122);
-    
+
     if(night) {
         c.fillStyle = "rgba(15, 8, 33, 0.2)";
-        
+
         c.fillRect(0, 0, layerCan.width, layerCan.height);
-        
+
     }
     if(night) {
         c.fillStyle = "rgba(20, 10, 50, "+(scrollY/Math.max(layerCan.height)*0.1+0.2)+")";
     } else {
         c.fillStyle = "rgba(20, 50, 100, "+(scrollY/Math.max(layerCan.height)*0.1)+")";
     }
-    
+
     c.fillRect(0, 0, layerCan.width, layerCan.height);
-    
+
     c.font = "20px monospace";
-    
+
     if(lmouseX>layerCan.width-100)
         lmenu0+=desire(layerCan.width-80, lmenu0);
     else lmenu0+=desire(layerCan.width, lmenu0);
     outText(c, "Layers", lmenu0+10, 20-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
     outText(c, "ExtraFX", lmenu0, 40-scrollY, "rgba(0, 0, 255, 0.05)", 1, exfx ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)");
-    
+
     if(lmouseX>s4*50-5 && lmouseX<s4*50+31){
         if(lmouseY-scrollY>50-scrollY/r4-5&&lmouseY-scrollY<80-scrollY/r4+31){
             c.drawImage(img3, 50*s4, 80-scrollY/r4);
@@ -154,7 +154,7 @@ function display() {
         document.body.style.cursor="";
         if(lmouseX>layerCan.width-100 && lmouseY<20){
             document.body.style.cursor="pointer";
-            outText(c, "Layers", lmenu0+10, 20-scrollY, "rgba(0, 0, 255, 0.59)", 1, layerbackground ? "#ffffff" : "rgba(0,0,0,0)"); 
+            outText(c, "Layers", lmenu0+10, 20-scrollY, "rgba(0, 0, 255, 0.59)", 1, layerbackground ? "#ffffff" : "rgba(0,0,0,0)");
             if(lmouseClicked){
                 layerbackground = !layerbackground;
             }
@@ -167,13 +167,13 @@ function display() {
             }
         }
     }
-    
+
     ldraw();
-    
+
     window.localStorage['zandgall_dayNight'] = night ? "night" : "day";
     window.localStorage['zandgall_exFx'] = exfx ? "true" : "false";
     window.localStorage['zandgall_layerbackground'] = layerbackground ? "true" : "false";
-    
+
     lmouseClicked=false;
 }
 
@@ -191,7 +191,7 @@ function outText(c, string, x, y, stroke, s, fill) {
                 c.fillStyle=fill;
                 c.fillText(string, x, y);
             }
-            
+
 function mesh(a, b, r) {
                 var nr = 1.0-r;
                 return a*r + b*nr;
@@ -202,11 +202,11 @@ function desire(desire, current) {
 }
 
 function ldraw() {
-    
+
     var van = document.getElementById("links");
     var c = van.getContext("2d");
     c.clearRect(0, 0, layerCan.width, layerCan.height);
-    
+
     c.font='30px monospace';
     if(night) c.fillStyle = "rgb(149, 177, 222)";
     else c.fillStyle = "rgb(36, 84, 162)";
@@ -215,28 +215,28 @@ function ldraw() {
     nw=c.measureText("What's New").width;
     cw=c.measureText("Contact").width;
     mw=c.measureText("Resource").width;
-    
+
     ix=van.width/2-(iw+dw+nw+cw+mw)/2;
     dx=ix+iw+10;
     nx=dx+dw+10;
     cx=nx+nw+10
     mx=cx+cw+10;
-            
+
     c.fillText("Home",ix,iy+10);
     c.fillText("Download",dx,iy+10);
     c.fillText("What's New",nx,iy+10);
     c.fillText("Contact",cx,iy+10);
     c.fillText("Resource",mx,iy+10);
-    
+
     c.font='16px monospace';
     if(ih){
         if(exfx)
             is += desire(55, is);
         else is = 55;
-        
+
         outText(c, "Homepage", ix, iy+is-14, "#a6ebff", 1, "#0000ff");
         outText(c, "About", ix, iy+is+4, "#a6ebff", 1, "#0000ff");
-        
+
         c.fillStyle="#ffff00";
         if(lmY>iy+is-34&&lmY<iy+is-14)
             c.fillText("Homepage", ix, iy+is-14);
@@ -251,11 +251,11 @@ function ldraw() {
         if(exfx)
         ds += desire(55, ds);
         else ds = 55;
-        
+
         outText(c, "Arvopia", dx, iy+ds-14, "#a6ebff", 1, "#0000ff");
         outText(c, "LevelCreator", dx, iy+ds+4, "#a6ebff", 1, "#0000ff");
         outText(c, "Arvopia Builds", dx, iy+ds+22, "#a6ebff", 1, "#0000ff");
-        
+
         c.fillStyle="#ffff00";
         if(lmY>iy+ds-34&&lmY<iy+ds-14)
             c.fillText("Arvopia", dx, iy+ds-14);
@@ -272,11 +272,11 @@ function ldraw() {
         if(exfx)
         ns += desire(55, ns);
         else ns=55;
-        
+
         outText(c, "Teasers", nx, iy+ns-14, "#a6ebff", 1, "#0000ff");
         outText(c, "Future Plans", nx, iy+ns+4, "#a6ebff", 1, "#0000ff");
         outText(c, "History", nx, iy+ns+22, "#a6ebff", 1, "#0000ff");
-        
+
         c.fillStyle="#ffff00";
         if(lmY>iy+ns-34&&lmY<iy+ns-14)
             c.fillText("Teasers", nx, iy+ns-14);
@@ -294,7 +294,7 @@ function ldraw() {
         cs += desire(55, cs);
         else cs=55;
         outText(c, "Social Media", cx, iy+cs-14, "#a6ebff", 1, "#0000ff");
-        
+
         c.fillStyle="#ffff00";
         if(lmY>iy+cs-34&&lmY<iy+cs-14)
             c.fillText("Social Media", cx, iy+cs-14);
@@ -319,31 +319,31 @@ function ldraw() {
         ms += desire(30, ms);
         else ms = 30;
     }
-    
+
     if((nh||dh||ih||ch||mh) && lmY>iy+Math.max(ms,cs,ns,is,ds)-34)
         document.body.style.cursor="pointer";
     else document.body.style.cursor=document.body.style.cursor;
-    
+
     c.lineJoin="round";
     c.lineWidth=3;
-    
-    if(night) 
+
+    if(night)
         c.strokeStyle = "rgb(149, 177, 222)";
-    else 
+    else
         c.strokeStyle = "rgb(36, 84, 162)";
-    
+
     c.strokeRect(ix, iy-is/2, iw, 0);
     c.strokeRect(ix, iy+is/2, iw, 0);
-    
+
     c.strokeRect(dx, iy-ds/2, dw, 0);
-    c.strokeRect(dx, iy+ds/2, dw, 0);    
-                
+    c.strokeRect(dx, iy+ds/2, dw, 0);
+
     c.strokeRect(nx, iy-ns/2, nw, 0);
     c.strokeRect(nx, iy+ns/2, nw, 0);
-                
+
     c.strokeRect(cx, iy-cs/2, cw, 0);
     c.strokeRect(cx, iy+cs/2, cw, 0);
-                
+
     c.strokeRect(mx, iy-ms/2, mw, 0);
     c.strokeRect(mx, iy+ms/2, mw, 0);
 }
@@ -385,11 +385,11 @@ function layerInit() {
     document.addEventListener("mousedown", lmousedown, false);
     console.log("Setting up mouseup");
     document.addEventListener("mouseup", lmouseup, false);
-    
+
     console.log("INITIATE");
-    
-    window.setInterval(display, 30);
-    
+
+    window.setInterval(display, 16);
+
     cloudImgs[0] = new Image();
     cloudImgs[0].src="assets/Cloud1.png";
     cloudImgs[1] = new Image();
@@ -398,11 +398,11 @@ function layerInit() {
     cloudImgs[2].src="assets/Cloud3.png";
     cloudImgs[3] = new Image();
     cloudImgs[3].src="assets/Cloud4.png";
-    
+
     night = (localStorage["zandgall_dayNight"] || "day") == "night";
-    exfx = (localStorage["zandgall_exFx"] || "true") == "true"; 
-    layerbackground = (localStorage["zandgall_layerbackground"] || "true") == "true"; 
-    
+    exfx = (localStorage["zandgall_exFx"] || "true") == "true";
+    layerbackground = (localStorage["zandgall_layerbackground"] || "true") == "true";
+
 }
 
 function initStars() {
@@ -418,46 +418,46 @@ function initClouds() {
 }
 
 function lmove(ev) {
-    
+
     var van = document.getElementById("links");
-    
+
     var x, y;
-    
-    var posX = layerCan.getBoundingClientRect().left; 
-    var posY = layerCan.getBoundingClientRect().top; 
-    
+
+    var posX = layerCan.getBoundingClientRect().left;
+    var posY = layerCan.getBoundingClientRect().top;
+
     posX=layerCan.offsetLeft;
     posY=layerCan.offsetTop;
-    
+
     lmX = lmouseX-van.offsetLeft;
     lmY = lmouseY-van.offsetTop;
-    
+
     x = ev.pageX-layerCan.offsetLeft;
     y = ev.pageY-layerCan.offsetTop;
-                
+
     ih=(lmX>=ix && lmX<ix+iw && lmY>0 && lmY<is+iy+4);
-                
+
     dh=(lmX>=dx && lmX<dx+dw && lmY>0 && lmY<ds+iy+(dh ? 22: -ds/2));
-                
+
     nh=(lmX>=nx && lmX<nx+nw && lmY>0 && lmY<ns+iy+(nh ? 22: -ns/2));
-                
+
     ch=(lmX>=cx && lmX<cx+cw && lmY>0 && lmY<cs+iy-14);
-                
+
     mh=(lmX>=mx && lmX<mx+mw && lmY>0 && lmY<ms+iy+4);
-    
+
     lmouseX=x;
     lmouseY=y;
 }
 
 function lclick(e) {
     lmouseClicked=true;
-    
+
     if(ih){
         if(lmY>iy+is-14)
             window.location.href="about.html";
         else if(lmY>iy+is-34 && lmY<iy+is-14)window.location.href="index.html";
     }
-    if(dh){ 
+    if(dh){
         if(lmY>iy+ds-14 && lmY<iy+ds+4)
             window.location.href="levelcreatordownload.html";
         else if(lmY>iy+ds+4 && lmY<iy+ds+22)
