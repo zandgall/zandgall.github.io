@@ -255,6 +255,7 @@ function ldraw() {
         outText(c, "Arvopia", dx, iy+ds-14, "#a6ebff", 1, "#0000ff");
         outText(c, "LevelCreator", dx, iy+ds+4, "#a6ebff", 1, "#0000ff");
         outText(c, "Arvopia Builds", dx, iy+ds+22, "#a6ebff", 1, "#0000ff");
+        outText(c, "Other Projects", dx, iy+ds+40, "#a6ebff", 1, "#0000ff");
 
         c.fillStyle="#ffff00";
         if(lmY>iy+ds-34&&lmY<iy+ds-14)
@@ -263,6 +264,8 @@ function ldraw() {
             c.fillText("LevelCreator", dx, iy+ds+4);
         else if(lmY>iy+ds+4&&lmY<iy+ds+22)
             c.fillText("Arvopia Builds", dx, iy+ds+22);
+        else if(lmY>iy+ds+22&&lmY<iy+ds+40)
+            c.fillText("Other Projects", dx, iy+ds+40);
     } else {
         if(exfx)
         ds += desire(30, ds);
@@ -437,7 +440,7 @@ function lmove(ev) {
 
     ih=(lmX>=ix && lmX<ix+iw && lmY>0 && lmY<is+iy+4);
 
-    dh=(lmX>=dx && lmX<dx+dw && lmY>0 && lmY<ds+iy+(dh ? 22: -ds/2));
+    dh=(lmX>=dx && lmX<dx+dw && lmY>0 && lmY<ds+iy+(dh ? 40: -ds/2));
 
     nh=(lmX>=nx && lmX<nx+nw && lmY>0 && lmY<ns+iy+(nh ? 22: -ns/2));
 
@@ -463,6 +466,7 @@ function lclick(e) {
         else if(lmY>iy+ds+4 && lmY<iy+ds+22)
             window.location.href="arvopiabuilddownload.html";
         else if(lmY>iy+ds-34 && lmY<iy+ds-14)window.location.href="arvopiadownload.html";
+        else if(lmY>iy+ds-14 && lmY<iy+ds+4)window.location.href="otherdownload.html";
     }
     if(nh){
         if(lmY>iy+ns-14 && lmY<iy+ns+4)
