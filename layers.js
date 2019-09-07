@@ -466,7 +466,7 @@ function lclick(e) {
         else if(lmY>iy+ds+4 && lmY<iy+ds+22)
             window.location.href="arvopiabuilddownload.html";
         else if(lmY>iy+ds-34 && lmY<iy+ds-14)window.location.href="arvopiadownload.html";
-        else if(lmY>iy+ds-14 && lmY<iy+ds+4)window.location.href="otherdownload.html";
+        else if(lmY>iy+ds+22 && lmY<iy+ds+40)window.location.href="otherdownload.html";
     }
     if(nh){
         if(lmY>iy+ns-14 && lmY<iy+ns+4)
