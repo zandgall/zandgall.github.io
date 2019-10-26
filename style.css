@@ -54,6 +54,31 @@ table, tt, th, td {
             text-align: center;
         }
         
+        .outlinetext {
+            color:rgb(234, 232, 248);
+            text-shadow: 
+            -1.5px -1.5px 0 #000,
+            1.5px -1.5px 0 #000,
+            -1.5px 1.5px 0 #000,
+            1.5px 1.5px 0 #000,
+            0px -1.5px 0 #000,
+            0px 1.5px 0 #000,
+            -1.5px 0px 0 #000,
+            1.5px 0px 0 #000;
+        }
+        .projsubtitle {
+            color:rgb(234, 232, 248);
+            text-shadow: 
+            -2.5px -2.5px 0 #000,
+            2.5px -2.5px 0 #000,
+            -2.5px 2.5px 0 #000,
+            2.5px 2.5px 0 #000,
+            0px -2.5px 0 #000,
+            0px 2.5px 0 #000,
+            -2.5px 0px 0 #000,
+            2.5px 0px 0 #000;
+        }
+
         html, body {
             margin: 0px;
             border: 0;

@@ -200,9 +200,109 @@ function mesh(a, b, r) {
 function desire(desire, current) {
     return ((desire-current)*0.3);
 }
+function desires(desire, current, speed) {
+    return ((desire-current)*speed);
+}
+
+function proj() {
+    var projs = document.querySelectorAll(".proj");
+    
+    for(var i  = 0; i<projs.length; i++){
+        var r = projs[i].getBoundingClientRect();
+        var over = projs[i].querySelector(".projoverlay");
+        var img = projs[i].querySelector(".projimg");
+        if(night)over.style.background = "#405066";
+        else over.style.background = "#8090ee";
+        if(over.style.opacity=="")
+            over.style.opacity=0.2;
+        if(img.style.border=="")
+            img.style.border="1px solid rgba(75, 175, 220, 0)";
+
+        var w = parseFloat(projs[i].style.width);
+        var h = parseFloat(projs[i].style.height);
+        var l = projs[i].style.marginLeft =="" ? 0 : parseFloat(projs[i].style.marginLeft);
+        var ri = projs[i].style.marginRight =="" ? 0 : parseFloat(projs[i].style.marginRight);
+        var t = projs[i].style.marginTop =="" ? 0 : parseFloat(projs[i].style.marginTop);
+        var b = projs[i].style.marginBottom =="" ? 0 : parseFloat(projs[i].style.marginBottom);
+        var c = img.style.borderColor=="" ? "rgba(75,175,220,0.1)" : img.style.borderColor;
+        var bo = parseFloat(c.replace(/^rgba?\(|\s+|\)$/g,'').split(',')[3]);
+        var ra = img.style.borderRadius=="" ? 1 : parseFloat(img.style.borderRadius);
+        var o = parseFloat(over.style.opacity);
+        var split = projs[i].querySelector(".splitter");
+        var s = parseFloat(split.style.width);
+        var so = projs[i].querySelector(".projsubtitle").style.opacity=="" ? 1 : parseFloat(projs[i].querySelector(".projsubtitle").style.opacity);
+        
+        if(lmouseX>r.left-((l/100.0)*800)&&lmouseX<=r.right+((ri/100.0)*800)&&lmouseY>r.top-t+scrollY&&lmouseY<=r.bottom+b+scrollY) {
+            over.style.opacity = o + desire(0, o);
+            h+=desire(240.0, h);
+            w+=desire(40.0, w);
+            projs[i].style.width = (w)+"%";
+            projs[i].style.height = h;
+            projs[i].style.marginTop = (200-h)/2;
+            projs[i].style.marginBottom = (199-h)/2;
+            projs[i].style.marginLeft = (33.33-(w))/2 + "%"
+            projs[i].style.marginRight = (33.33-(w))/2 + "%"
+
+            bo += desire(0.1, bo);
+            if(night) {img.style.borderColor = "rgba(75,175,220,"+bo+")";}
+            else {img.style.borderColor = "rgba(20,30,60,"+bo+")";}
+            img.style.borderRadius = (ra + desire(5, ra))+"px";
+    
+            if(lmouseClicked){
+                console.log(img.getAttribute("data-link"));
+            }
+            
+            s+=desire(75, s, 0.2);
+            split.style.width = s+"%";
+            var splitMargin = (100-s)/2;
+            split.style.marginLeft=splitMargin+"%";
+            split.style.marginRight=splitMargin+"%";
+            so+=desires(1, so, 0.1);
+            projs[i].querySelector(".projsubtitle").style.opacity = so;
+
+            projs[i].style.zIndex = 10;
+            img.style.zIndex = 10;
+            over.style.zIndex = 10;
+            split.style.zIndex = 10;
+            projs[i].querySelector(".projtitle").style.zIndex = 10;
+            projs[i].querySelector(".projsubtitle").style.zIndex = 10;
+            document.body.style.cursor="pointer";
+        }
+        else {
+            over.style.opacity = o + desire(0.4, o);
+            h+=desire(200.0, h);
+            w+=desire(33.33, w);
+            projs[i].style.width = (w)+"%";
+            projs[i].style.height = h;
+            projs[i].style.marginTop = (200-h)/2;
+            projs[i].style.marginBottom = (199-h)/2;
+            projs[i].style.marginLeft = (33.33-(w))/2 + "%"
+            projs[i].style.marginRight = (33.33-(w))/2 + "%"
+
+            bo += desire(0.0, bo);
+            if(night)img.style.borderColor = "rgba(75,175,220,"+bo+")" ;
+            else img.style.borderColor = "rgba(175,230,255,"+bo+")";
+            s+=desires(0, s, 0.1);
+            split.style.width = s+"%";
+            var splitMargin = (100-s)/2;
+            split.style.marginLeft=splitMargin+"%";
+            split.style.marginRight=splitMargin+"%";
+            so+=desires(0, so, 0.1);
+            projs[i].querySelector(".projsubtitle").style.opacity = so;
+
+            projs[i].style.zIndex = 0;
+            img.style.zIndex = 0;
+            over.style.zIndex = 0;
+            split.style.zIndex = 0;
+            projs[i].querySelector(".projtitle").style.zIndex = 0;
+            projs[i].querySelector(".projsubtitle").style.zIndex = 0;
+            img.style.borderRadius = (ra + desire(0, ra))+"px";
+        }
+    }
+}
 
 function ldraw() {
-
+    proj();
     var van = document.getElementById("links");
     var c = van.getContext("2d");
     c.clearRect(0, 0, layerCan.width, layerCan.height);
@@ -363,6 +463,8 @@ function cssNight() {
         $("a").css("color", "#f239f2");
         $(".title").css("color", "#e3e3e6");
         $("img").css("opacity", "0.7");
+        $(".outlinetext").css("text-shadow", "-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000,1.5px 1.5px 0 #000, 0px -1.5px 0 #000, 0px 1.5px 0 #000, -1.5px 0px 0 #000, 1.5px 0px 0 #000")
+        $(".outlinetext").css("color", "rgb(234, 232, 248)");
     } else {
         $(".section").css("background", "linear-gradient(rgb(147, 198, 237), rgb(132, 184, 211))");
         $(".section").css("border", "2px solid rgba(59, 99, 163, 0.5)");
@@ -374,7 +476,7 @@ function cssNight() {
         $("a").css("color", "#0000ff");
         $(".title").css("color", "#00d8ff");
         $("img").css("opacity", "1");
-//        document.getElementById("twit").setAttribute("data-theme", "light");
+        $(".outlinetext").css("color", "rgb(244, 242, 255)");
     }
 }
 
