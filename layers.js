@@ -234,6 +234,13 @@ function proj() {
         var s = parseFloat(split.style.width);
         var so = projs[i].querySelector(".projsubtitle").style.opacity=="" ? 1 : parseFloat(projs[i].querySelector(".projsubtitle").style.opacity);
         
+        if(w>36){
+            console.log("setting");
+            projs[i].parentElement.removeAttribute("disabled");
+        } else {
+            projs[i].parentElement.setAttribute("disabled", false);
+        }
+
         if(lmouseX>r.left-((l/100.0)*800)&&lmouseX<=r.right+((ri/100.0)*800)&&lmouseY>r.top-t+scrollY&&lmouseY<=r.bottom+b+scrollY) {
             over.style.opacity = o + desire(0, o);
             h+=desire(240.0, h);
@@ -610,4 +617,10 @@ $("document").ready(function() {
     console.log("Supposedly initiating");
     layerInit();
     cssNight();
+});
+
+$("a").on("click", function(event){
+    if ($(this).is("[disabled]")) {
+        event.preventDefault();
+    }
 });
