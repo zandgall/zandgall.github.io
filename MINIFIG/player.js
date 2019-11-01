@@ -1,3 +1,4 @@
+// @ts-nocheck
 class Player {
     constructor(x, y) {
         this.x=x;

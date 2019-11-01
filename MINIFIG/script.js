@@ -1,3 +1,4 @@
+// @ts-nocheck
 var can = document.getElementById("canvas");
 
 var mouseDown = false, mouseLeft = false, mouseRight = false, mouseClicked = false, mouseDBLClicked = false;

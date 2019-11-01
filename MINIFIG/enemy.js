@@ -1,3 +1,4 @@
+// @ts-nocheck
 class enemy {
     constructor(x, y) {
         this.x = x;

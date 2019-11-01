@@ -1,3 +1,4 @@
+// @ts-nocheck
 class insect {
 
   constructor(x, y, size, type) {

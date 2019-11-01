@@ -1,3 +1,4 @@
+// @ts-nocheck
 var perlin = document.getElementById("Perlin");
 
 var mouseDown = false, mouseLeft = false, mouseRight=false, mouseClicked = false, mouseDBLClicked = false;

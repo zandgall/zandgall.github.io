@@ -1,3 +1,4 @@
+// @ts-nocheck
 var o1 = -150, o2 = -50, o3 = 100;
 var r1 = 8, r2 = 4, r3 = 1.75, r4 = 16;
 var s1 = Math.random()+1, s2=Math.random()+1, s3=Math.random()+1, s4=Math.random()+1;
@@ -51,7 +52,7 @@ var mh = false;
 function display() {
     layerCan = document.getElementById("BackgroundC");
 
-    if(layerCan.width!=canw.width||layerCan.height!=canw.height){
+    if(clouds.length==1){
         canw.width=layerCan.width;
         canw.height=layerCan.height;
         initStars();
@@ -108,7 +109,7 @@ function display() {
         for(var i = 0; i<clouds.length; i++) {
             clouds[i].x+=(1/clouds[i].o);
             if(clouds[i].x>layerCan.width)
-                clouds[i].x=-60;
+                clouds[i].x=-60-(clouds[i].x-layerCan.width);
             c.drawImage(cloudImgs[clouds[i].t], clouds[i].x, clouds[i].y-scrollY/clouds[i].o, 74-clouds[i].o*2, 56-clouds[i].o*2);
         }
     }
@@ -190,16 +191,17 @@ function outText(c, string, x, y, stroke, s, fill) {
                 c.fillText(string, x+s, y+s);
                 c.fillStyle=fill;
                 c.fillText(string, x, y);
-            }
+}
 
 function mesh(a, b, r) {
                 var nr = 1.0-r;
                 return a*r + b*nr;
-            }
+}
 
 function desire(desire, current) {
     return ((desire-current)*0.3);
 }
+
 function desires(desire, current, speed) {
     return ((desire-current)*speed);
 }
@@ -518,7 +520,7 @@ function initStars() {
 
 function initClouds() {
     for(var i = 0; i<20; i++) {
-        clouds[i] = {x:Math.random()*layerCan.width, y:Math.random()*layerCan.height, t:Math.floor(Math.random()*4), o:(20-i)/20.0*5+1};
+        clouds[i] = {x:Math.random()*1920, y:Math.random()*2160, t:Math.floor(Math.random()*4), o:(20-i)/20.0*5+1};
     }
 }
 
