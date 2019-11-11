@@ -1,3 +1,4 @@
+// Used as position and/or direction
 class Vec {
     /**
      * @param {number} [x]
@@ -115,6 +116,314 @@ class Tri {
     }
     area() {
         return triArea_(this);
+    }
+    /**
+     * @param {{ beginPath: () => void; moveTo: (arg0: number, arg1: number) => void; lineTo: { (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; }; stroke: () => void; }} c
+     */
+    stroke(c) {
+        c.beginPath();
+        c.moveTo(this.a.x, this.a.y);
+        c.lineTo(this.b.x, this.b.y);
+        c.lineTo(this.c.x, this.c.y);
+        c.lineTo(this.a.x, this.a.y);
+        c.stroke();
+    }
+    /**
+     * @param {{ beginPath: () => void; moveTo: (arg0: number, arg1: number) => void; lineTo: { (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; }; fill: () => void; }} c
+     */
+    fill(c) {
+        c.beginPath();
+        c.moveTo(this.a.x, this.a.y);
+        c.lineTo(this.b.x, this.b.y);
+        c.lineTo(this.c.x, this.c.y);
+        c.lineTo(this.a.x, this.a.y);
+        c.fill();
+    }
+}
+class Shape {
+    /**
+     * @param {Vec[]} [points]
+     * @param {number[][]} [edges]
+     * @param {number[][]} [faces]
+     */
+    constructor(points = [], edges, faces) {
+        this.points = points;
+        if(edges) {
+            this.edges = edges;
+        } else {
+            /** @type {number[][]} */
+            this.edges = [];
+            for(var i = 0; i<points.length-1; i++) {
+                this.edges.push([i, i+1]);
+            }
+        }
+        if(faces){
+            this.faces = faces; 
+        } else {
+            /** @type {number[][]} */
+            this.faces = [[]];
+            for(var i = 0; i<this.edges.length; i++){
+                this.faces[0].push(i);
+            }
+        }
+    }
+
+    close() {
+        this.edges.push([this.points.length-1, 0]);
+    }
+
+    /**
+     * @param {number} canvasWidth
+     * @param {number} canvasHeight
+     */
+    getVoronoi(canvasWidth, canvasHeight) {
+        var bbox = {xl:0, xr:canvasWidth, yt:0, yb:canvasHeight};
+        // @ts-ignore
+        var voronoi = new Voronoi();
+        return voronoi.compute(this.points, bbox)
+    }
+
+    applyFromVoronoi(voronoi) {
+        // this.faces = [];
+        // this.edges = [];
+        // for(var i = 0; i<voronoi.cells.length; i++) {
+        //     this.faces.push([]);
+        //     for(var j = 0; j<voronoi.cells[i].halfedges.length; j++) {
+        //         var h = voronoi.cells[i].halfedges[i];
+        //         if(h!=undefined) {
+        //             var a = new Vec(h.getStartpoint().x, h.getStartpoint().y);
+        //             var b = new Vec(h.getStartpoint().x, h.getStartpoint().y);
+                    
+        //             // if(this.points.indexOf(a)!=-1)
+        //                 this.points.push(a);
+        //             // if(this.points.indexOf(b)!=-1)
+        //                 this.points.push(b);
+
+        //             this.edges.push([this.points.indexOf(a), this.points.indexOf(b)]);
+        //             this.faces[i].push(this.edges.length-1);
+        //         }
+        //     }
+        // }
+        this.faces = [];
+        this.edges = [];
+        for(var i = 0; i<voronoi.vertices.length; i++) {
+            this.points.push(voronoi.vertices[i]);
+        }
+    }
+    
+    createConvexHull() {
+        var p = this.points;
+        p.sort((a, b) => (a.x > b.x) ? 1 : -1);
+        var minx = p[0].x;
+        var maxx = p[p.length-1].x;
+        p.sort((a, b) => (a.y > b.y) ? 1 : -1);
+        var miny = p[0].y;
+        var maxy = p[p.length-1].y;
+        console.log(minx, maxx, miny, maxy);
+        var bbox = {xl:minx, xr:maxx, yt:miny, yb:maxy};
+        // @ts-ignore
+        var voronoi = new Voronoi();
+        var voronoiPoints = voronoi.compute(this.points, bbox).vertices;
+        var triangles = [];
+        for(var i = 0; i<voronoiPoints.length; i++) {
+            var v = voronoiPoints[i];
+             if(v.x!=minx&&v.x!=maxx&&v.y!=miny&&v.y!=maxy){
+                 p.sort((a, b) => (distance3d_(a.x, a.y, a.z, v.x, v.y, 0) > distance3d_(b.x, b.y, b.z, v.x, v.y, 0)) ? 1 : -1);
+                 triangles.push(new Tri(p[0], p[1], p[2]));
+             }
+        }
+        return triangles;
+    }
+
+    rightChain() {
+        var miny = this.points[0], maxy = this.points[1];
+        for(var i = 0 ; i < this.points.length; i++) {
+            if(this.points[i].y<=miny.y)
+                miny = this.points[i];
+            if(this.points[i].y>=maxy.y)
+                maxy = this.points[i];
+        }
+        var out = [];
+        out.push(miny);
+        var c = miny;
+        var a, b;
+        for(var i = 0; i<this.edges.length; i++){
+            if(this.points[this.edges[i][0]]==c&&b!=this.points[this.edges[i][1]]&&a==undefined)
+                a=this.points[this.edges[i][1]];
+            if(this.points[this.edges[i][1]]==c&&a!=this.points[this.edges[i][0]]&&b==undefined)
+                b=this.points[this.edges[i][0]];
+        }
+        if(a==undefined||b==undefined) {
+            console.log(a, b, "Quitting...");
+            return;
+        }
+        if(a.x<b.x)
+            a=b;
+        var antiSoftlock = 0;
+        for(var i = 0; true; i++) {
+            if(i>this.edges.length-1)
+                i=0;
+            antiSoftlock++;
+            if(antiSoftlock>this.edges.length*this.edges.length)
+                return out;
+            if(this.points[this.edges[i][0]]==c&&(c!=miny||this.points[this.edges[i][1]]==a)){
+                c = this.points[this.edges[i][1]];
+                out.push(c);
+                if(c==maxy)
+                    return out;
+            }
+        }
+    } 
+
+    leftChain() {
+        var miny = this.points[0], maxy = this.points[1];
+        for(var i = 0 ; i < this.points.length; i++) {
+            if(this.points[i].y<=miny.y)
+                miny = this.points[i];
+            if(this.points[i].y>=maxy.y)
+                maxy = this.points[i];
+        }
+        var out = [];
+        out.push(miny);
+        var c = miny;
+        var a, b;
+        for(var i = 0; i<this.edges.length; i++){
+            if(this.points[this.edges[i][0]]==c&&b!=this.points[this.edges[i][1]]&&a==undefined)
+                a=this.points[this.edges[i][1]];
+            if(this.points[this.edges[i][1]]==c&&a!=this.points[this.edges[i][0]]&&b==undefined)
+                b=this.points[this.edges[i][0]];
+        }
+        if(a==undefined||b==undefined) {
+            console.log(a, b, "Quitting...");
+            return;
+        }
+        if(a.x>b.x)
+            a=b;
+        var antiSoftlock = 0;
+        for(var i = 0; true; i++) {
+            if(i>this.edges.length-1)
+                i=0;
+            antiSoftlock++;
+            if(antiSoftlock>this.edges.length*this.edges.length)
+                return out;
+            if(this.points[this.edges[i][0]]==c&&(c!=miny||this.points[this.edges[i][1]]==a)){
+                c = this.points[this.edges[i][1]];
+                out.push(c);
+                if(c==maxy)
+                    return out;
+            }
+        }
+    }
+
+    softCut(start, end) {
+        var miny = start, maxy = end;
+        var out = [], out2 = [];
+        out.push(miny);
+        out2.push(miny);
+        var c = miny, d = miny;
+        var cdone = false, ddone = false;
+        var a, b;
+        for(var i = 0; i<this.edges.length; i++){
+            if(this.points[this.edges[i][0]]==c&&b!=this.points[this.edges[i][1]]&&a==undefined)
+                a=this.points[this.edges[i][1]];
+            if(this.points[this.edges[i][1]]==c&&a!=this.points[this.edges[i][0]]&&b==undefined)
+                b=this.points[this.edges[i][0]];
+        }
+        if(a==undefined||b==undefined) {
+            console.log(a, b, "Quitting...");
+            return [out, out2];
+        }
+        var antiSoftlock = 0;
+        for(var i = 0; true; i++) {
+            if(i>this.edges.length-1)
+                i=0;
+            antiSoftlock++;
+            if(antiSoftlock>this.edges.length*this.edges.length||(cdone&&ddone))
+                return [out, out2];
+            if(this.points[this.edges[i][0]]==c&&(c!=miny||this.points[this.edges[i][1]]==a)&&!cdone){
+                c = this.points[this.edges[i][1]];
+                out.push(c);
+                if(c==maxy)
+                    cdone = true;
+            }
+            if(this.points[this.edges[i][1]]==d&&(d!=miny||this.points[this.edges[i][0]]==b)&&!ddone){
+                d = this.points[this.edges[i][0]];
+                out2.push(d);
+                if(d==maxy)
+                    ddone = true;
+            }
+        }
+    }
+
+    monotonePartition() {
+        var right = new Shape(this.rightChain());
+        var left = new Shape(this.leftChain());
+        var out = [];
+        var m;
+        for(var i = 0; i<right.points.length-1; i++){
+            if(m) { // Deal with marked section
+                var check = false;
+                for(var j = 0; j<right.edges.length; j++){
+                    if(lineIntersection2d(new Vec(0, right.points[i].y), new Vec(Infinity, right.points[i].y), right.points[right.edges[j][0]], right.points[right.edges[j][1]]))
+                        check = true;
+                }
+                if(!check){
+                    var splitted = this.softCut(m, right.points[i]);
+                    // var m0 = new Shape(splitted[0]).monotonePartition();
+                    // var m1 = new Shape(splitted[1]).monotonePartition();
+                    console.log(splitted, m, right.points[i]);
+                    return [new Shape(splitted[0]), new Shape(splitted[1])];
+                }
+                break;
+            } else {
+                if(right.points[i+1].y>right.points[i].y){
+                    out.push(right.points[i]);
+                } else
+                    m=right.points[i];
+            }
+        }
+        return [new Shape(out)];
+    }
+
+    /**
+     * @param {{ beginPath: () => void; closePath: () => void; moveTo: (arg0: number, arg1: number) => void; lineTo: { (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; }; stroke: () => void; }} c
+     */
+    stroke(c) {
+        for(var i = 0; i<this.edges.length; i++) {
+            if(this.edges[i]!=undefined) {
+                var a = this.points[this.edges[i][0]];
+                c.beginPath();
+                c.moveTo(a.x, a.y);
+                var b = this.points[this.edges[i][1]];
+                c.lineTo(b.x, b.y);
+                c.stroke();
+            } else {
+                console.log("Error");
+            }
+        }
+    }
+    markVertices(c, size) {
+        for(var i = 0 ; i < this.points.length; i++){
+            c.beginPath();
+            c.arc(this.points[i].x, this.points[i].y, size, 0, Math.PI*2, false);
+            c.fill();
+        }
+    }
+    /**
+     * @param {{ beginPath: () => void; closePath: () => void; moveTo: (arg0: number, arg1: number) => void; lineTo: { (arg0: number, arg1: number): void; (arg0: number, arg1: number): void; }; fill: () => void; }} c
+     */
+    fill(c) {
+        for(var i = 0; i<this.faces.length; i++) {
+            var a = this.points[this.edges[this.faces[i][0]][0]];
+            c.beginPath();
+            c.moveTo(a.x, a.y);
+            for(var j = 0; j<this.faces[i].length; j++){
+                var b = this.points[this.edges[this.faces[i][j]][1]];
+                c.lineTo(b.x, b.y);
+            }
+            c.closePath();
+            c.fill();
+        }
     }
 }
 

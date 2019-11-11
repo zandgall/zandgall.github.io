@@ -1,8 +1,12 @@
-<style>
-        @keyframes fleft {
-            flow-from: {left: 0}
-            flow-into: {left: 200}
-        }
+/* <style> */
+@keyframes fleft {
+    flow-from {left: 0}
+    flow-into {left: 200}
+}
+
+a[disabled] {
+    pointer-events: none;
+}
         
 table, tt, th, td {
     border: 1px solid black;
@@ -76,7 +80,8 @@ table, tt, th, td {
             0px -2.5px 0 #000,
             0px 2.5px 0 #000,
             -2.5px 0px 0 #000,
-            2.5px 0px 0 #000;
+            2.5px 0px 0 #000; 
+            /* text-shadow: 0px 0px -4px black; */
         }
 
         html, body {
@@ -100,4 +105,4 @@ table, tt, th, td {
             to {opacity:1}
         }
         
-</style>
+/* </style> */

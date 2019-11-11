@@ -48,7 +48,7 @@ var mx = 0;
 var mw = 100;
 var ms = 20;
 var mh = false;
-
+var img0, img1, img2, img3;
 function display() {
     layerCan = document.getElementById("BackgroundC");
 
@@ -64,7 +64,7 @@ function display() {
     c.canvas.width=window.innerWidth;
     c.canvas.height=window.innerHeight;
 
-    c.clearRect(0,0,layerCan.width,layerCan.height);
+    // c.clearRect(0,0,layerCan.width,layerCan.height);
 
     if(night){
         c.fillStyle="rgb(13, 4, 38)";
@@ -78,21 +78,22 @@ function display() {
             }
     }
 
-    var img0 = new Image();
-    img0.src = "BGImg0.png";
-    var img1 = new Image();
-    img1.src = "BGImg1.png";
-    var img2 = new Image();
-    img2.src = "BGImg2.png";
-
-    var img3 = new Image();
+    if(!img0) {
+        img0 = new Image();
+        img0.src = "BGImg0.png";
+        img1 = new Image();
+        img1.src = "BGImg1.png";
+        img2 = new Image();
+        img2.src = "BGImg2.png";
+        img3 = new Image();
+    }
     img3.src = "assets/Sun.png";
     if(night){
         img3.src = "assets/Moon.png";
 
         c.fillStyle = "rgb(100, 100, 120)";
         for(var i = 0; i<100; i++) {
-            c.fillRect(stars[i].x, stars[i].y, stars[i].w, stars[i].w);
+            c.fillRect(stars[i].x*layerCan.width, stars[i].y*layerCan.height, stars[i].w, stars[i].w);
         }
     }
 
@@ -105,14 +106,16 @@ function display() {
         c.drawImage(img0, layerCan.width-3240*s1, o1-scrollY/r1+2322, 6480, -2322);
         c.drawImage(img1, layerCan.width-3440*s2, o2-scrollY/r2+2722, 6880, -2722);
     }
+
     if(!night && exfx){
         for(var i = 0; i<clouds.length; i++) {
-            clouds[i].x+=(1/clouds[i].o);
-            if(clouds[i].x>layerCan.width)
-                clouds[i].x=-60-(clouds[i].x-layerCan.width);
-            c.drawImage(cloudImgs[clouds[i].t], clouds[i].x, clouds[i].y-scrollY/clouds[i].o, 74-clouds[i].o*2, 56-clouds[i].o*2);
+            clouds[i].x+=(0.001/clouds[i].o);
+            if(clouds[i].x>1)
+                clouds[i].x=-0.1;
+            c.drawImage(cloudImgs[clouds[i].t], clouds[i].x*layerCan.width, clouds[i].y*layerCan.height-scrollY/clouds[i].o, 74-clouds[i].o*2, 56-clouds[i].o*2);
         }
     }
+
     if(layerbackground)
         c.drawImage(img2, layerCan.width-3640*s3, o3-scrollY/r3+3122, 7280, -3122);
 
@@ -168,8 +171,6 @@ function display() {
             }
         }
     }
-
-    ldraw();
 
     window.localStorage['zandgall_dayNight'] = night ? "night" : "day";
     window.localStorage['zandgall_exFx'] = exfx ? "true" : "false";
@@ -502,7 +503,8 @@ function layerInit() {
 
     console.log("INITIATE");
 
-    window.setInterval(display, 16);
+    window.setInterval(display, 32);
+    window.setInterval(ldraw, 16);
 
     cloudImgs[0] = new Image();
     cloudImgs[0].src="assets/Cloud1.png";
@@ -521,13 +523,13 @@ function layerInit() {
 
 function initStars() {
     for(var i = 0; i<100; i++) {
-        stars[i] = {x:Math.random()*layerCan.width, y:Math.random()*layerCan.height, w:Math.random()*3};
+        stars[i] = {x:Math.random(), y:Math.random(), w:Math.random()*3};
     }
 }
 
 function initClouds() {
     for(var i = 0; i<20; i++) {
-        clouds[i] = {x:Math.random()*1920, y:Math.random()*2160, t:Math.floor(Math.random()*4), o:(20-i)/20.0*5+1};
+        clouds[i] = {x:Math.random(), y:Math.random(), t:Math.floor(Math.random()*4), o:(20-i)/20.0*5+1};
     }
 }
 

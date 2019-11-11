@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 var colCan = document.getElementById("Canvas");
 
 var mouseDown = false,
@@ -23,36 +24,45 @@ function init() {
     console.log("INITIATE");
 }
 
+var vecList = [new Vec(100, 100)]; 
+
 function colDraw() {
-
     var c = colCan.getContext("2d");
-
+    
     c.clearRect(0, 0, colCan.width, colCan.height);
     var mouseX = colMouseX;
     var mouseY = colMouseY;
 
+    if(mouseClicked) {
+        vecList.push(new Vec(mouseX, mouseY));
+    }
     //DO STUFF HERE
-    var v0 = new Vec(100, 0, 100);
-    var v1 = new Vec(150, 0, 200);
-    var v3 = new Vec(mouseX, 0, mouseY);
-    var v2 = new Vec(400, 0, 50);
-    c.beginPath();
+    var s = new Shape(vecList);
+    s.close();
     c.strokeStyle = rgb(0, 0, 0);
-    if(triBarycentricCollision(new Tri(v0, v1, v2), v3)) {
-        c.strokeStyle = rgb(100, 255, 0);
+    c.fillStyle=rgba(255, 0, 0, 0.1);
+    s.fill(c);
+    s.stroke(c);
+    c.fillStyle = rgb(255, 0, 0);
+    s.markVertices(c, 4);
+    
+    var v = s.monotonePartition();
+    
+    for(var i = 0; i<v.length; i++){
+        c.fillStyle=rgba(255*(i/v.length), 255-255*(i/v.length), 0, 1);
+        v[i].markVertices(c, 4);
     }
     
-    c.moveTo(v0.x, v0.z);
-    c.lineTo(v1.x, v1.z);
-    c.lineTo(v2.x, v2.z);
-    c.lineTo(v0.x, v0.z);
-    c.stroke();
-    c.fillStyle = rgb(255, 0, 0);
+    
+    
     var max = AREATIME + BARYCENTRICTIME + SAMESIDETIME;
     // c.fillText(Math.floor((AREATIME / max) * 1000) / 10 + "%", 20, 400);
+    
     c.fillText(AREATIME, 20, 400);
+    
     c.fillText(BARYCENTRICTIME, 20, 410);
     // c.fillText(Math.floor((BARYCENTRICTIME / max) * 1000) / 10 + "%", 20, 410);
+    
     c.fillText(Math.floor((SAMESIDETIME / max) * 1000) / 10 + "%", 20, 420);
 
     mouseClicked = false;
@@ -95,6 +105,7 @@ function click(e) {
     mouseClicked = true;
 }
 
+
 function dblClick(e) {
     mouseDBLClicked = true;
 }
@@ -103,9 +114,11 @@ function on_mousemove(ev) {
     move(ev);
 }
 
+
 function mousedown(ev) {
     mouseDown = true;
 }
+
 
 function mouseup(ev) {
     mouseDown = false;
@@ -127,6 +140,7 @@ function keyUp(e) {
     keys[e.keyCode] = false;
     keyPressed = false;
 }
+
 
 $("document").ready(new function () {
     init();
